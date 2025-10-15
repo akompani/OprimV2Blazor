@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Oprim.Application",
+    "\\Oprim.Application\\Patterns",
+    "\\Oprim.Application\\Patterns\\Qualities",
+    "\\Oprim.Application\\Patterns\\Qualities\\Queries"
+  ],
+  "SelectedNode": "\\Oprim.Application\\Patterns\\Qualities\\Queries\\GetPunchesQueryHandler.cs",
+  "PreviewInSolutionExplorer": false
+}
