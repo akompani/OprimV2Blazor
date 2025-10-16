@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Oprim.Application.Interfaces;
 using Oprim.Domain.Entities.Quality;
 
-namespace Oprim.Application.Patterns.Qualities.Queries;
+namespace Oprim.Application.Patterns.Qualities.Queries.GetPunches;
 
 public class GetPunchesQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandler<GetPunchesQuery, List<PunchItem>>
 {

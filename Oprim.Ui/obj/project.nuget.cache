@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "trZacj/9HwM=",
+  "dgSpecHash": "9WPKEIfqKX8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Ui\\Oprim.Ui.csproj",
+  "projectFilePath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Ui\\Oprim.Ui.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\890\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\890\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
@@ -161,9 +161,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'MD.PersianDateTime 4.6.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Ui\\Oprim.Ui.csproj",
+      "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Ui\\Oprim.Ui.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Ui\\Oprim.Ui.csproj",
+      "filePath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Ui\\Oprim.Ui.csproj",
       "libraryId": "MD.PersianDateTime",
       "targetGraphs": [
         "net9.0"

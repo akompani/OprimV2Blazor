@@ -18,7 +18,7 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddUiServices();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(GetPunchesQueryHandler).Assembly));
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 

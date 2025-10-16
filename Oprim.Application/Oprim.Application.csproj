@@ -19,7 +19,7 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Dtos\" />
-      <Folder Include="Patterns\Qualities\Commands\" />
+      <Folder Include="Patterns\" />
     </ItemGroup>
 
 </Project>

@@ -6709,11 +6709,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj",
       "projectName": "Oprim.Domain",
-      "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj",
+      "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj",
       "packagesPath": "C:\\Users\\890\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\obj\\",
+      "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

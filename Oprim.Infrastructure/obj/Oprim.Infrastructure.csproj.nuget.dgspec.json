@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {}
+    "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Application\\Oprim.Application.csproj": {
+    "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Application\\Oprim.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Application\\Oprim.Application.csproj",
+        "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Application\\Oprim.Application.csproj",
         "projectName": "Oprim.Application",
-        "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Application\\Oprim.Application.csproj",
+        "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Application\\Oprim.Application.csproj",
         "packagesPath": "C:\\Users\\890\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Application\\obj\\",
+        "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj": {
-                "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj"
+              "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj": {
+                "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj"
               }
             }
           }
@@ -103,14 +103,14 @@
         }
       }
     },
-    "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj": {
+    "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj",
         "projectName": "Oprim.Domain",
-        "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\Oprim.Domain.csproj",
+        "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\Oprim.Domain.csproj",
         "packagesPath": "C:\\Users\\890\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Domain\\obj\\",
+        "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -204,14 +204,14 @@
         }
       }
     },
-    "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {
+    "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
         "projectName": "Oprim.Infrastructure",
-        "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\890\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -232,8 +232,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Application\\Oprim.Application.csproj": {
-                "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2\\Oprim.Application\\Oprim.Application.csproj"
+              "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Application\\Oprim.Application.csproj": {
+                "projectPath": "C:\\Users\\890\\RiderProjects\\OprimV2Blazor1\\Oprim.Application\\Oprim.Application.csproj"
               }
             }
           }
