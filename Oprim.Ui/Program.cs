@@ -2,30 +2,39 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Oprim.Application;
-using Oprim.Application.Patterns.Qualities.Queries;
 using Oprim.Infrastructure;
 using Oprim.Ui;
 using Oprim.Ui.Components;
-using Oprim.Ui.Components.Account;
-using Oprim.Ui.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// -------------------------
+// 🔹 Register Services
+// -------------------------
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddUiServices();
+
+// ✅ Identity و Authentication
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddIdentityCookies();
+
+builder.Services.AddAuthorizationBuilder();
 builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
+// -------------------------
+// 🔹 Build App
+// -------------------------
 var app = builder.Build();
 
+// -------------------------
+// 🔹 Middleware Pipeline
+// -------------------------
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -37,16 +46,22 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseAntiforgery();
-app.MapStaticAssets();
-
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
-app.MapAdditionalIdentityEndpoints();
-
-app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+// ✅ Auth middlewares
 app.UseAuthentication();
 app.UseAuthorization();
+
+// ✅ باید بعد از Auth و قبل از MapRazorComponents بیاد
+app.UseAntiforgery();
+
+// ✅ Razor components mapping
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
+// ✅ Map static assets (Blazor 9 feature)
+app.MapStaticAssets();
+
 app.Run();

@@ -1,23 +1,33 @@
-﻿@inherits LayoutComponentBase
+﻿@using Oprim.Ui.Components.Shared
+@inherits LayoutComponentBase
+
+
+@* <div id="global-loader"> *@
+@* 	<img src="assets/img/loader.svg" class="loader-img" alt="Loader"> *@
+@* </div> *@
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+    <Sidebar/>
+    <div class="main-content app-content">
+        <Navbar/>
+        <div class="container-fluid">
             @Body
-        </article>
-    </main>
+        </div>
+    </div>
 </div>
+<a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
 
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
-</div>
+@code
+{
+    [Inject] private IJSRuntime JS { set; get; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(110);
+            // await JS.InvokeVoidAsync("loadingDashboard");
+        }
+    }
+}
