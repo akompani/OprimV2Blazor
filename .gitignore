@@ -22,7 +22,14 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-
+Oprim.Ui/obj
+Oprim.Ui/bin
+Oprim.Application/bin
+Oprim.Application/obj
+Oprim.Domain/bin
+Oprim.Domain/obj
+Oprim.Infrastructure/obj
+Oprim.Infrastructure/bin
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
