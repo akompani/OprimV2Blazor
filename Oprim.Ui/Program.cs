@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 using Oprim.Application;
 using Oprim.Infrastructure;
 using Oprim.Ui;
@@ -26,6 +27,7 @@ builder.Services.AddAuthorizationBuilder();
 builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddMudServices();
 
 // -------------------------
 // 🔹 Build App
