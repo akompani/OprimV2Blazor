@@ -1,13 +1,25 @@
 @page "/PunchItems"
+@using Microsoft.EntityFrameworkCore
 @using MudBlazor
+@using Oprim.Application.Interfaces
+@using Oprim.Domain.Entities.Quality
 @rendermode InteractiveServer
-<MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" 
+
+<MudThemeProvider/>
+<MudPopoverProvider/>
+
+
+@foreach (var i in _items)
+{
+    <span>@i.Id</span>
+}
+<MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped"
           Filter="new Func<Element,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" Style="direction: rtl">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Periodic Elements</MudText>
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString1" Placeholder="Search" 
-                      Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" 
+        <MudSpacer/>
+        <MudTextField @bind-Value="searchString1" Placeholder="Search"
+                      Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
 
@@ -28,12 +40,15 @@
     </RowTemplate>
 
     <PagerContent>
-        <MudTablePager />
+        <MudTablePager/>
     </PagerContent>
 </MudTable>
 
 
 @code {
+    [Inject] IUnitOfWork _ofWork { set; get; }
+
+
     private bool dense = false;
     private bool hover = true;
     private bool striped = false;
@@ -41,6 +56,19 @@
     private string searchString1 = "";
     private Element? selectedItem1;
     private IEnumerable<Element> Elements = new List<Element>();
+    private List<PunchItem> _items = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var query = _ofWork.GenericRepository<PunchItem>().TableNoTracking
+            .Include(p => p.ProjectWbs)
+            .Include(p => p.DepartmentItem)
+            .Include(p => p.Creator)
+            .AsQueryable();
+
+        _items = await query.ToListAsync();
+        StateHasChanged();
+    }
 
     protected override void OnInitialized()
     {
@@ -84,4 +112,5 @@
         public int Position { get; set; }
         public double Molar { get; set; }
     }
+
 }

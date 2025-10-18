@@ -2713,3 +2713,14 @@ C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.JSI
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\MudBlazor.dll
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\compressed\tzxjg6is5z-jk5eo7zo4m.gz
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\compressed\0wz98yz2xy-tjzqk7tnel.gz
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.AspNetCore.Components.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.Extensions.Localization.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.Extensions.Localization.Abstractions.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Microsoft.JSInterop.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\MudBlazor.dll
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\compressed\tzxjg6is5z-jk5eo7zo4m.gz
+C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\compressed\0wz98yz2xy-tjzqk7tnel.gz
