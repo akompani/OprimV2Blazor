@@ -52,9 +52,6 @@ C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\refint\O
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.pdb
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.genruntimeconfig.cache
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\ref\Oprim.Domain.dll
-C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.dll
-C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\refint\Oprim.Domain.dll
-C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.pdb
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\bin\Debug\net9.0\Oprim.Domain.deps.json
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\bin\Debug\net9.0\Oprim.Domain.runtimeconfig.json
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\bin\Debug\net9.0\Oprim.Domain.dll
@@ -68,5 +65,8 @@ C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Dom
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.csproj.CoreCompileInputs.cache
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.sourcelink.json
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Do.6D312F0A.Up2Date
+C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.dll
+C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\refint\Oprim.Domain.dll
+C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.pdb
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\Oprim.Domain.genruntimeconfig.cache
 C:\Users\890\RiderProjects\OprimV2Blazor\Oprim.Domain\obj\Debug\net9.0\ref\Oprim.Domain.dll

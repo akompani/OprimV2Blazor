@@ -11,13 +11,8 @@ public class CreatePunchItemCommandHandler(IUnitOfWork ofWork) : IRequestHandler
         await ofWork.GenericRepository<PunchItem>().AddAsync(new PunchItem
         {
             CreateTime = request.CreateTime,
-            CreatorId = request.CreatorId,
             OpponentLinks = request.OpponentLinks,
-            ProjectId = request.ProjectId,
-            DepartmentItemId = request.DepartmentItemId,
             Notes = request.Notes,
-            ProjectItemId = request.ProjectItemId,
-            WbsId = request.WbsId,
         }, cancellationToken);
     }
 }

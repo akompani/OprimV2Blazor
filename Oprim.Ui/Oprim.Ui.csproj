@@ -6,6 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>aspnet-Oprim.Ui-4e780e0b-a90b-4b6c-8f09-305f061e5623</UserSecretsId>
     </PropertyGroup>
+    <PropertyGroup>
+        <EnableDefaultCompressedStaticFiles>false</EnableDefaultCompressedStaticFiles>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.9" />
