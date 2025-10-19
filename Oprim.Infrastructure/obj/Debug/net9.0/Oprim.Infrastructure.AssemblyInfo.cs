@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Oprim.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a616483ab2b53b7a32a59b83f19ec085af43ad41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+833cc000184472ca9ac8d1ac58d1424cbbc93714")]
 [assembly: System.Reflection.AssemblyProductAttribute("Oprim.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Oprim.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
