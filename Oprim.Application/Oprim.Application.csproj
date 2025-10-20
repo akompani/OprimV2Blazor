@@ -17,9 +17,5 @@
     <ItemGroup>
         <ProjectReference Include="..\Oprim.Domain\Oprim.Domain.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Dtos\" />
-      <Folder Include="Patterns\" />
-    </ItemGroup>
 
 </Project>

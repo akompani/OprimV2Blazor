@@ -10,7 +10,7 @@ public class GetPunchesQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandler<G
     public async Task<List<PunchItem>> Handle(GetPunchesQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.GenericRepository<PunchItem>().TableNoTracking
-            .AsQueryable();
+            .AsNoTracking();
 
         return await query.ToListAsync(cancellationToken: cancellationToken);
     }
