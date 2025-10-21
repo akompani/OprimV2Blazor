@@ -1,19 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Oprim.Domain.Common;
-using Oprim.Domain.Old.Models;
-using Oprim.Domain.Old.Models.Organization.Stakeholders;
-using Oprim.Domain.Old.Models.PMO.Activities;
-using Oprim.Domain.Old.Models.PMO.Schedules;
-using Oprim.Domain.Old.Models.PMO.Scope;
-using Oprim.Domain.Old.Models.Projects;
+using Oprim.Domain.Entities.Projects;
+
 
 namespace Oprim.Domain.Entities.Quality
 {
     public class PunchItem : BaseEntity
     {
 
-        // [ForeignKey("ProjectId")] public Project Project { get; set; }
-        // public int ProjectId { get; set; }
+        [ForeignKey("ProjectId")] public Project Project { get; set; }
+        public int ProjectId { get; set; }
         //
         // [ForeignKey("WbsId")] public ProjectWbs ProjectWbs { get; set; }
         // public long WbsId { get; set; }

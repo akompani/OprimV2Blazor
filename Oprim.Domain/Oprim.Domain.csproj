@@ -19,10 +19,6 @@
         <PackageReference Include="MD.PersianDateTime" Version="4.6.0" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Enums\" />
-      <Folder Include="Old\" />
-    </ItemGroup>
-    <ItemGroup>
       <Reference Include="GeneralServices">
         <HintPath>..\..\OprimOld\Library\GeneralServices.dll</HintPath>
       </Reference>

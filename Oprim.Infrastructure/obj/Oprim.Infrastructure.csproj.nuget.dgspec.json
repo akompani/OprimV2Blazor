@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {}
+    "F:\\GITHUB\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj": {
+    "F:\\GITHUB\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj",
+        "projectUniqueName": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj",
         "projectName": "Oprim.Application",
-        "projectPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Application\\obj\\",
+        "projectPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj",
+        "packagesPath": "C:\\Users\\kompa\\.nuget\\packages\\",
+        "outputPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kompa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,15 +25,15 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://contoso.com/packages/": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj": {
-                "projectPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj"
+              "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj": {
+                "projectPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj"
               }
             }
           }
@@ -48,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -99,24 +99,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj": {
+    "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
+        "projectUniqueName": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
         "projectName": "Oprim.Domain",
-        "projectPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\obj\\",
+        "projectPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
+        "packagesPath": "C:\\Users\\kompa\\.nuget\\packages\\",
+        "outputPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kompa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -124,8 +124,8 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://contoso.com/packages/": {}
         },
         "frameworks": {
           "net9.0": {
@@ -143,7 +143,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -200,24 +200,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {
+    "F:\\GITHUB\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
+        "projectUniqueName": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
         "projectName": "Oprim.Infrastructure",
-        "projectPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Infrastructure\\obj\\",
+        "projectPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Infrastructure\\Oprim.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\kompa\\.nuget\\packages\\",
+        "outputPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kompa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -225,15 +225,15 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://contoso.com/packages/": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj": {
-                "projectPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj"
+              "F:\\GITHUB\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj": {
+                "projectPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Application\\Oprim.Application.csproj"
               }
             }
           }
@@ -248,7 +248,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -275,7 +275,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

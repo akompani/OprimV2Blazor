@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Oprim.Domain.Entities.Quality;
-using Oprim.Domain.Old.Models.Organization;
+using Oprim.Domain.Entities.Projects;
 
 namespace Oprim.Domain.Database
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -20,10 +21,16 @@ namespace Oprim.Domain.Database
             }
         }
 
- 
+        #region Project
+
+        public DbSet<Project> Projects { get; set; }
+
+        #endregion
 
         #region Quality
+
         public DbSet<PunchItem> PunchItems { get; set; }
+
         #endregion
     }
 }
