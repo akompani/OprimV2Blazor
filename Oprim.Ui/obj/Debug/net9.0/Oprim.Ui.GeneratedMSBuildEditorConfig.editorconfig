@@ -63,6 +63,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/PunchItemDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xQdW5jaEl0ZW1EaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Navbar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTmF2YmFyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

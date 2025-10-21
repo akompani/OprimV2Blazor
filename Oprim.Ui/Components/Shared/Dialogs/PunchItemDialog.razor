@@ -1,0 +1,57 @@
+@using MudBlazor
+@using Oprim.Domain.Entities  
+@using Oprim.Domain.Entities.Quality
+@rendermode InteractiveServer
+@* یا namespace مدل‌هات *@
+
+<MudDialog Style="min-width: 380px" >
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated">
+            <MudTextField Label="یادداشت" @bind-Value="_model.Notes" Required="true" />
+            <MudTextField Label="زمان ایجاد" @bind-Value="_model.CreateTime" Required="true" />
+            <MudTextField Label="لینک مخالف" @bind-Value="_model.OpponentLinks" />
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="mt-4">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public PunchItem? Item { get; set; }  // اگر null بود یعنی Create، وگرنه Edit
+
+    private MudForm? _form;
+    private PunchItem _model = new();
+
+    protected override void OnInitialized()
+    {
+        _model = Item is null
+            ? new PunchItem { CreateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm") }
+            : new PunchItem
+            {
+                Id = Item.Id,
+                Notes = Item.Notes,
+                CreateTime = Item.CreateTime,
+                OpponentLinks = Item.OpponentLinks
+            };
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+
+        if (_form.IsValid)
+            MudDialog.Close(DialogResult.Ok(_model));
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated() { }
+}

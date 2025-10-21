@@ -11,7 +11,6 @@ public class GetPunchesQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandler<G
     {
         var query = _unitOfWork.GenericRepository<PunchItem>().TableNoTracking
             .AsQueryable();
-
         return await query.ToListAsync(cancellationToken: cancellationToken);
     }
 }
