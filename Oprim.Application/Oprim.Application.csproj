@@ -17,5 +17,9 @@
     <ItemGroup>
         <ProjectReference Include="..\Oprim.Domain\Oprim.Domain.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Patterns\PMO\Projects\" />
+      <Folder Include="Patterns\Quality\PunchItems\" />
+    </ItemGroup>
 
 </Project>

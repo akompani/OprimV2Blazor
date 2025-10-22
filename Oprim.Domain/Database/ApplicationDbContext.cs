@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Oprim.Domain.Entities.Cost;
+using Oprim.Domain.Entities.Organization;
+using Oprim.Domain.Entities.PMO;
 using Oprim.Domain.Entities.Quality;
-using Oprim.Domain.Entities.Projects;
 
 namespace Oprim.Domain.Database
 {
@@ -21,12 +23,28 @@ namespace Oprim.Domain.Database
             }
         }
 
-        #region Project
+        #region Organization
 
-        public DbSet<Project> Projects { get; set; }
+        public DbSet<StakeholderGroup> StakeholderGroups { get; set; }
+        public DbSet<Stakeholder> Stakeholders { get; set; }
 
         #endregion
 
+        #region PMO
+
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<ProjectItemGroup> ProjectItemGroups { get; set; }
+        public DbSet<ProjectItem> ProjectItems { get; set; }
+
+        #endregion
+
+        #region Cost
+
+        public DbSet<ProjectCostBreakdown> ProjectCostBreakdowns { get; set; }
+
+        #endregion
+        
         #region Quality
 
         public DbSet<PunchItem> PunchItems { get; set; }
