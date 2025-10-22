@@ -6703,23 +6703,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kompa\\.nuget\\packages\\": {},
+    "C:\\Users\\Amin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Amin\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
       "projectName": "Oprim.Domain",
-      "projectPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
-      "packagesPath": "C:\\Users\\kompa\\.nuget\\packages\\",
-      "outputPath": "F:\\GITHUB\\OprimV2Blazor\\Oprim.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Amin\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
+      "packagesPath": "C:\\Users\\Amin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Amin\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\obj\\",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kompa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Amin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6727,8 +6728,8 @@
         "net9.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://contoso.com/packages/": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
@@ -6745,8 +6746,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net9.0": {
