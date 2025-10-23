@@ -1,6 +1,7 @@
+using Oprim.Application.Dtos.Common;
 namespace Oprim.Application.Dtos.PMO.ProjectItem;
 
-public class CreateProjectItemDTO
+public class CreateProjectItemDTO : BaseProjectDTO
 {
     public int ProjectCbsId { get; set; }
     

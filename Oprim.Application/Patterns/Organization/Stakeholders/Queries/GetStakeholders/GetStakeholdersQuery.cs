@@ -5,5 +5,5 @@ namespace Oprim.Application.Patterns.Organization.Stakeholders.Queries.GetStakeh
 
 public class GetStakeholdersQuery:IRequest<List<Stakeholder>>
 {
-    
+    public int StakeholderGroupId { get; set; } = 0;
 }

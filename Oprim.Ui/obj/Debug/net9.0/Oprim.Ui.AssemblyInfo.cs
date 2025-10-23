@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Oprim.Ui")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad32ca8308cf0cd23274621f4ea7e1ed243c3df6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d631cb40d306a8901095caaff75fe50ba2ee2cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Oprim.Ui")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Oprim.Ui")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

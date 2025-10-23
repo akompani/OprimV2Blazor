@@ -10,6 +10,7 @@ public class GetProjectItemsQueryHandler(IUnitOfWork unitOfWork) : IRequestHandl
     public async Task<List<ProjectItem>> Handle(GetProjectItemsQuery request, CancellationToken cancellationToken)
     {
         var query = unitOfWork.GenericRepository<ProjectItem>().TableNoTracking
+            .Where(p=> p.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         return await query.ToListAsync(cancellationToken: cancellationToken);

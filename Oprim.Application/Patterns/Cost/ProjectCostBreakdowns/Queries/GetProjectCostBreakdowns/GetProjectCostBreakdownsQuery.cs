@@ -5,5 +5,5 @@ namespace Oprim.Application.Patterns.Cost.ProjectCostBreakdowns.Queries.GetProje
 
 public class GetProjectCostBreakdownsQuery:IRequest<List<ProjectCostBreakdown>>
 {
-    
+    public int ProjectId { get; set; }
 }
