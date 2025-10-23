@@ -10,7 +10,7 @@ public class CreateProjectCostBreakdownCommandHandler(IUnitOfWork unitOfWork,IMa
 {
     public async Task Handle(CreateProjectCostBreakdownCommand request, CancellationToken cancellationToken)
     {
-        var entity = new ProjectCostBreakdown(){Name = request.Name};
+        var entity = mapper.Map<ProjectCostBreakdown>( request.CreateCostBreakdownDto);
         await unitOfWork.GenericRepository<ProjectCostBreakdown>().AddAsync(entity, cancellationToken);
     }
 }
