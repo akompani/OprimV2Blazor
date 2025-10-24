@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Oprim.Application.Patterns.PMO.ProjectItems.Commands.DeleteProjectItem;
+namespace Oprim.Application.Patterns.PMO.ProjectItemGroups.Commands.DeleteProjectItem;
 
 public class DeleteProjectItemGroupCommand : IRequest
 {

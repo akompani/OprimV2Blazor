@@ -1,7 +1,6 @@
 using AutoMapper;
 using MediatR;
 using Oprim.Application.Interfaces;
-using Oprim.Application.Patterns.PMO.Projects.Commands.CreateProject;
 using Oprim.Domain.Entities.PMO;
 
 namespace Oprim.Application.Patterns.PMO.ProjectItems.Commands.CreateProjectItem;

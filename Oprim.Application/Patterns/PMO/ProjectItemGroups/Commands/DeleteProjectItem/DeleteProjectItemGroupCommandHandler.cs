@@ -1,6 +1,5 @@
 using MediatR;
 using Oprim.Application.Interfaces;
-using Oprim.Application.Patterns.PMO.ProjectItems.Commands.DeleteProjectItem;
 using Oprim.Domain.Entities.PMO;
 
 namespace Oprim.Application.Patterns.PMO.ProjectItemGroups.Commands.DeleteProjectItem;

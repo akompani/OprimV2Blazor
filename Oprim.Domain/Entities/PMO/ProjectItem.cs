@@ -6,21 +6,19 @@ namespace Oprim.Domain.Entities.PMO;
 
 public class ProjectItem : BaseProjectEntity
 {
-    
-
     [ForeignKey("ProjectItemGroupId")] public ProjectItemGroup ProjectItemGroup { get; set; }
-    public int ProjectItemGroupId { get; set; }
+    public long ProjectItemGroupId { get; set; }
 
     [ForeignKey("ProjectCostBreakdownId")] public ProjectCostBreakdown ProjectCostBreakdown { get; set; }
-    public int ProjectCostBreakdownId { get; set; }
+    public long ProjectCostBreakdownId { get; set; }
 
     public string Code { get; set; }
 
     public string Name { get; set; }
 
-    public int EngineeringLead { get; set; }
+    public int EngineeringLeadDays { get; set; }
 
-    public int ProcurementLead { get; set; }
+    public int ProcurementLeadDays { get; set; }
 
     public string? Unit { get; set; }
 

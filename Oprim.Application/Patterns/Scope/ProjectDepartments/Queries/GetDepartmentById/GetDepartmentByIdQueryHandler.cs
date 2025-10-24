@@ -5,11 +5,11 @@ using Oprim.Domain.Entities.Scope;
 
 namespace Oprim.Application.Patterns.Scope.ProjectDepartments.Queries.GetDepartmentById;
 
-public class GetDepartmentByIdQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandler<GetDepartmentByIdQuery, ProjectDepartment>
+public class GetDepartmentByIdQueryHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetDepartmentByIdQuery, ProjectDepartment>
 {
     public async Task<ProjectDepartment> Handle(GetDepartmentByIdQuery request, CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.GenericRepository<ProjectDepartment>().TableNoTracking
+        var query = unitOfWork.GenericRepository<ProjectDepartment>().TableNoTracking
             .AsQueryable();
 
         return await query.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);

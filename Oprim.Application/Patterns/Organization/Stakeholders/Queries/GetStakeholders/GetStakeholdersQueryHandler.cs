@@ -11,6 +11,7 @@ public class GetStakeholdersQueryHandler(IUnitOfWork unitOfWork)
     public async Task<List<Stakeholder>> Handle(GetStakeholdersQuery request, CancellationToken cancellationToken)
     {
         var query = unitOfWork.GenericRepository<Stakeholder>().TableNoTracking
+            .Include(s=> s.StakeholderGroup)
             .AsNoTracking();
 
         if (request.StakeholderGroupId != 0)

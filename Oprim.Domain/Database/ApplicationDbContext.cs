@@ -4,6 +4,7 @@ using Oprim.Domain.Entities.Cost;
 using Oprim.Domain.Entities.Organization;
 using Oprim.Domain.Entities.PMO;
 using Oprim.Domain.Entities.Quality;
+using Oprim.Domain.Entities.WorkFlow;
 
 namespace Oprim.Domain.Database
 {
@@ -27,6 +28,7 @@ namespace Oprim.Domain.Database
 
         public DbSet<StakeholderGroup> StakeholderGroups { get; set; }
         public DbSet<Stakeholder> Stakeholders { get; set; }
+        public DbSet<OrganizationRole> OrganizationRoles { get; set; }
 
         #endregion
 
@@ -48,6 +50,15 @@ namespace Oprim.Domain.Database
         #region Quality
 
         public DbSet<PunchItem> PunchItems { get; set; }
+
+        #endregion
+
+        #region WorkFlow
+
+        public DbSet<WorkTemplate> WorkTemplates { get; set; }
+        public DbSet<WorkTemplateArticle> WorkTemplateArticles { get; set; }
+        public DbSet<Work> Works { get; set; }
+        public DbSet<WorkArticle> WorkArticles { get; set; }
 
         #endregion
     }

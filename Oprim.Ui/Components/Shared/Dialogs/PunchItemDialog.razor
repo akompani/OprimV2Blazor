@@ -33,7 +33,7 @@
     protected override void OnInitialized()
     {
         _model = Item is null
-            ? new PunchItem { CreateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm") }
+            ? new PunchItem { CreateTime = DateTime.Now }
             : new PunchItem
             {
                 Id = Item.Id,

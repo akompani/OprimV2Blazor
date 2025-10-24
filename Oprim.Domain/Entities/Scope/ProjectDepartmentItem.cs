@@ -7,7 +7,7 @@ namespace Oprim.Domain.Entities.Scope;
 public class ProjectDepartmentItem : BaseProjectEntity
 {
     [ForeignKey("DepartmentId")] public ProjectDepartment Department { get; set; }
-    public int DepartmentId { get; set; }
+    public long DepartmentId { get; set; }
 
     public int Row { get; set; }
     

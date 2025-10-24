@@ -5,11 +5,11 @@ using Oprim.Domain.Entities.Quality;
 
 namespace Oprim.Application.Patterns.Quality.PunchItems.Queries.GetPunches;
 
-public class GetPunchesQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandler<GetPunchesQuery, List<PunchItem>>
+public class GetPunchesQueryHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetPunchesQuery, List<PunchItem>>
 {
     public async Task<List<PunchItem>> Handle(GetPunchesQuery request, CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.GenericRepository<PunchItem>().TableNoTracking
+        var query = unitOfWork.GenericRepository<PunchItem>().TableNoTracking
             .Where(p=> p.ProjectId == request.ProjectId)
             .AsNoTracking();
 
