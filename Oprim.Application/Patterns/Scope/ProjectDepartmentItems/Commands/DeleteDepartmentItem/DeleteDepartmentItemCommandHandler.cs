@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Oprim.Application.Interfaces;
+using Oprim.Application.Patterns.Scope.ProjectDepartments.Commands.DeleteDepartment;
 using Oprim.Domain.Entities.Scope;
 
 namespace Oprim.Application.Patterns.Scope.ProjectDepartmentItems.Commands.DeleteDepartmentItem;
