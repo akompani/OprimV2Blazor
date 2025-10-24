@@ -1,6 +1,6 @@
 using Oprim.Application.Dtos.Common;
 
-namespace Oprim.Application.Dtos.Project;
+namespace Oprim.Application.Dtos.PMO.Project;
 
 public class CreateProjectDTO:BaseDTO
 {
