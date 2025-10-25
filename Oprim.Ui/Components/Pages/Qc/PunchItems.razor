@@ -1,7 +1,9 @@
 @page "/PunchItems"
+@using MediatR
 @using Microsoft.EntityFrameworkCore
 @using MudBlazor
 @using Oprim.Application.Interfaces
+@using Oprim.Application.Patterns.Quality.PunchItems.Queries.GetPunches
 @using Oprim.Domain.Entities.Quality
 @using Oprim.Ui.Components.Shared.Dialogs
 @rendermode InteractiveServer
@@ -72,6 +74,7 @@
 </MudContainer>
 @code {
     [Inject] IUnitOfWork _ofWork { get; set; } = default!;
+    [Inject] IMediator Mediator { get; set; } = default!;
     [Inject] IDialogService DialogService { get; set; } = default!;
 
     private string searchString1 = "";
@@ -80,8 +83,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var query = _ofWork.GenericRepository<PunchItem>().TableNoTracking.AsQueryable();
-        _items = await query.ToListAsync();
+        var query = await Mediator.Send(new GetPunchesQuery());
     }
 
     private async Task CreateItem()

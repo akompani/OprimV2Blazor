@@ -5,12 +5,14 @@ using Oprim.Domain.Entities.PMO;
 
 namespace Oprim.Application.Patterns.PMO.ProjectItems.Queries.GetProjectItems;
 
-public class GetProjectItemsQueryHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetProjectItemsQuery, List<ProjectItem>>
+public class GetProjectItemsQueryHandler(IUnitOfWork unitOfWork)
+    : IRequestHandler<GetProjectItemsQuery, List<ProjectItem>>
 {
     public async Task<List<ProjectItem>> Handle(GetProjectItemsQuery request, CancellationToken cancellationToken)
     {
         var query = unitOfWork.GenericRepository<ProjectItem>().TableNoTracking
-            .Where(p=> p.ProjectId == request.ProjectId)
+            .Include(x => x.ProjectItemGroup)
+            .Where(p => p.ProjectItemGroup.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         return await query.ToListAsync(cancellationToken: cancellationToken);

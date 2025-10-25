@@ -1,5 +1,5 @@
 using MediatR;
-using Oprim.Application.Dtos.PMO.Project;
+using Oprim.Application.Dtos.PMO.Projects;
 
 namespace Oprim.Application.Patterns.PMO.Projects.Commands.CreateProject;
 
