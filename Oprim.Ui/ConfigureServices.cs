@@ -9,7 +9,7 @@ public static class ConfigureServices
     public static IServiceCollection AddUiServices(this IServiceCollection services)
     {
         services.AddDbContext<Domain.Database.ApplicationDbContext>(s =>
-            s.UseSqlServer("Server=DESKTOP-46S8RHK;Database=oprim;Trusted_Connection=True;TrustServerCertificate=True;"));
+            s.UseSqlServer("Data Source=185.2.14.61\\MSSQLSERVER2022;Initial Catalog=oprim_test_blazor;Integrated Security=False;User ID=oprim_blazor;Password=Blazor2025;Connect Timeout=15;Encrypt=False;Packet Size=4096"));
         services.AddAutoMapper(typeof(Program));
         return services;
     }
