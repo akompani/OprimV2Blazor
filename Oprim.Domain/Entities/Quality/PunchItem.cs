@@ -13,8 +13,8 @@ namespace Oprim.Domain.Entities.Quality
         // [ForeignKey("WbsId")] public ProjectWbs ProjectWbs { get; set; }
         // public long WbsId { get; set; }
         //
-        [ForeignKey("DepartmentId")] public ProjectDepartmentItem DepartmentItem { get; set; }
-        public int DepartmentItemId { get; set; }
+        [ForeignKey("DepartmentItemId")] public ProjectDepartmentItem DepartmentItem { get; set; }
+        public long DepartmentItemId { get; set; }
         
         [ForeignKey("ProjectItemId")] public ProjectItem ProjectItem { get; set; }
         public long ProjectItemId { get; set; }
