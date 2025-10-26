@@ -6,9 +6,9 @@ using Oprim.Domain.Entities.Scope;
 
 namespace Oprim.Domain.Entities.Quality
 {
-    public class PunchItem : BaseEntity
+    public class PunchItem : BaseProjectEntity
     {
-        [ForeignKey("DepartmentId")] public ProjectDepartmentItem DepartmentItem { get; set; } = default!;
+        [ForeignKey("DepartmentId")] public ProjectDepartmentItem DepartmentItem { get; set; }
         public long DepartmentItemId { get; set; }
         
         [ForeignKey("ProjectItemId")] public ProjectItem ProjectItem { get; set; }
