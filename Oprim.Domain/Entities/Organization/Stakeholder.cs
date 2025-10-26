@@ -8,7 +8,7 @@ public class Stakeholder : BaseEntity
     public string Code { get; set; }
 
     [ForeignKey("StakeholderGroupId")] public StakeholderGroup StakeholderGroup { get; set; }
-    public int StakeholderGroupId { get; set; }
+    public long StakeholderGroupId { get; set; }
 
     public bool IsLegalPersonality { get; set; }
     

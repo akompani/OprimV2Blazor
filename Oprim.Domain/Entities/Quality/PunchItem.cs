@@ -16,7 +16,7 @@ namespace Oprim.Domain.Entities.Quality
         // public int DepartmentItemId { get; set; }
         //
         [ForeignKey("ProjectItemId")] public ProjectItem ProjectItem { get; set; }
-        public int ProjectItemId { get; set; }
+        public long ProjectItemId { get; set; }
 
         public string Notes { get; set; }
 
@@ -27,7 +27,7 @@ namespace Oprim.Domain.Entities.Quality
         /// Creator id می تواند برای همه entity ها باشه
         /// </summary>
         [ForeignKey("CreatorId")] public Stakeholder Creator { get; set; }
-        public int CreatorId { get; set; }
+        public long CreatorId { get; set; }
 
         public string OpponentLinks { get; set; }
 

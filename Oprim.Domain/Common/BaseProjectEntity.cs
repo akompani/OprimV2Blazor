@@ -8,5 +8,5 @@ namespace Oprim.Domain.Common;
 public class BaseProjectEntity : BaseEntity
 {
     [ForeignKey("ProjectId")] public Project Project { get; set; }
-    public int ProjectId { get; set; }
+    public long ProjectId { get; set; }
 }
