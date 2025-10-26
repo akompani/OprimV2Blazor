@@ -10,7 +10,8 @@ public class GetPunchesQueryHandler(IUnitOfWork unitOfWork) : IRequestHandler<Ge
     public async Task<List<PunchItem>> Handle(GetPunchesQuery request, CancellationToken cancellationToken)
     {
         var query = unitOfWork.GenericRepository<PunchItem>().TableNoTracking
-            .Where(p=> p.ProjectId == request.ProjectId)
+            .Include(x=>x.DepartmentItem)
+            .Where(p=> p.DepartmentItem.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         //if(request.DepartmentItemId != 0) query = query.Where(p=> p.d)

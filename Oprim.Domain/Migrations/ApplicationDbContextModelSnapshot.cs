@@ -339,10 +339,35 @@ namespace Oprim.Domain.Migrations
                     b.Property<long>("CreatorId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Email")
+                    b.Property<double>("EstimateQuantity")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EstimateUnitCost")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FaxNumber")
+                    b.Property<int>("ProcurementLeadDays")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ProjectCostBreakdownId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProjectItemGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("QuantityForOneHour")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalCost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalQuantity")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
@@ -371,7 +396,8 @@ namespace Oprim.Domain.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("StakeholderGroupId");
+                    b.Property<long>("ProjectId")
+                        .HasColumnType("bigint");
 
                     b.ToTable("Stakeholders");
                 });
@@ -394,6 +420,12 @@ namespace Oprim.Domain.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ProjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1241,7 +1273,7 @@ namespace Oprim.Domain.Migrations
 
                     b.HasOne("Oprim.Domain.Entities.Organization.StakeholderGroup", "StakeholderGroup")
                         .WithMany()
-                        .HasForeignKey("StakeholderGroupId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -4,12 +4,12 @@ using Oprim.Domain.Entities.Cost;
 
 namespace Oprim.Domain.Entities.PMO;
 
-public class ProjectItem : BaseProjectEntity
+public class ProjectItem : BaseEntity
 {
-    [ForeignKey("ProjectItemGroupId")] public ProjectItemGroup ProjectItemGroup { get; set; }
+    [ForeignKey("ProjectItemGroupId")] public ProjectItemGroup ProjectItemGroup { get; set; } = default!;
     public long ProjectItemGroupId { get; set; }
 
-    [ForeignKey("ProjectCostBreakdownId")] public ProjectCostBreakdown ProjectCostBreakdown { get; set; }
+    [ForeignKey("ProjectCostBreakdownId")] public ProjectCostBreakdown ProjectCostBreakdown { get; set; }= default!;
     public long ProjectCostBreakdownId { get; set; }
 
     public string Code { get; set; }
