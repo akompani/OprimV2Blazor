@@ -2,6 +2,7 @@
 using Oprim.Domain.Common;
 using Oprim.Domain.Entities.Organization;
 using Oprim.Domain.Entities.PMO;
+using Oprim.Domain.Entities.Scope;
 
 namespace Oprim.Domain.Entities.Quality
 {
@@ -12,9 +13,9 @@ namespace Oprim.Domain.Entities.Quality
         // [ForeignKey("WbsId")] public ProjectWbs ProjectWbs { get; set; }
         // public long WbsId { get; set; }
         //
-        // [ForeignKey("DepartmentId")] public ProjectDepartmentItem DepartmentItem { get; set; }
-        // public int DepartmentItemId { get; set; }
-        //
+        [ForeignKey("DepartmentId")] public ProjectDepartmentItem DepartmentItem { get; set; }
+        public int DepartmentItemId { get; set; }
+        
         [ForeignKey("ProjectItemId")] public ProjectItem ProjectItem { get; set; }
         public long ProjectItemId { get; set; }
 

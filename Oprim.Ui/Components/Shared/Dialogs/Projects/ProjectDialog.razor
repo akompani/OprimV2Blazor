@@ -31,7 +31,7 @@
     protected override void OnInitialized()
     {
         _model = Item is null
-            ? new PunchItem { CreateTime = DateTime.Now }
+            ? new PunchItem { CreateTime = string.Empty }
             : new PunchItem
             {
                 Id = Item.Id,
