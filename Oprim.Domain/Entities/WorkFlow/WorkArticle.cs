@@ -17,10 +17,10 @@ public class WorkArticle : BaseProjectEntity
     public long WorkId { get; set; }
 
     [ForeignKey("WorkTemplateArticleId")] public WorkTemplateArticle WorkTemplateArticle { get; set; }
-    public int WorkTemplateArticleId { get; set; }
+    public long WorkTemplateArticleId { get; set; }
 
     [ForeignKey("StakeholderId")] public Stakeholder Stakeholder { get; set; }
-    public int StakeholderId { get; set; }
+    public long StakeholderId { get; set; }
     
     public DateTime PlanStart { get; set; }
     
