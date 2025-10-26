@@ -19,7 +19,7 @@ namespace Oprim.Domain.Entities.Quality
         [ForeignKey("ProjectItemId")] public ProjectItem ProjectItem { get; set; }
         public long ProjectItemId { get; set; }
 
-        public string Notes { get; set; }
+        public string Notes { get; set; } 
         public string OpponentLinks { get; set; }
 
     }
