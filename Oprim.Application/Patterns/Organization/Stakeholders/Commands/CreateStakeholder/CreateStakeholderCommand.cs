@@ -1,5 +1,5 @@
 using MediatR;
-using Oprim.Application.Dtos.Organization.Stakeholder;
+using Oprim.Application.Dtos.Organization.Stakeholders;
 
 namespace Oprim.Application.Patterns.Organization.Stakeholders.Commands.CreateStakeholder;
 

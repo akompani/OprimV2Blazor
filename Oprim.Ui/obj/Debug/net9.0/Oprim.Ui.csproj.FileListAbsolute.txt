@@ -3777,8 +3777,6 @@ F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\runtimes\win\lib\net8.0\System
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Oprim.Application.dll
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Oprim.Domain.dll
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Oprim.Infrastructure.dll
-F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\GeneralServices.dll
-F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\MrMetrorGeneralServices.dll
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Oprim.Application.pdb
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Oprim.Domain.pdb
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\bin\Debug\net9.0\Oprim.Infrastructure.pdb
@@ -3787,7 +3785,6 @@ F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.GeneratedMSBuildEdito
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.AssemblyInfoInputs.cache
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.AssemblyInfo.cs
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.csproj.CoreCompileInputs.cache
-F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.MvcApplicationPartsAssemblyInfo.cs
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.MvcApplicationPartsAssemblyInfo.cache
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\Oprim.Ui.sourcelink.json
 F:\GITHUB\OprimV2Blazor\Oprim.Ui\obj\Debug\net9.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css

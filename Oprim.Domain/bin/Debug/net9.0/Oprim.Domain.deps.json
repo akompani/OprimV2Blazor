@@ -15,9 +15,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "9.0.9",
           "Microsoft.Extensions.Http": "9.0.9",
           "Microsoft.Extensions.Identity.Core": "9.0.9",
-          "Microsoft.QualityTools.Testing.Fakes": "18.1.1",
-          "GeneralServices": "1.0.0.0",
-          "MrMetrorGeneralServices": "1.0.0.0"
+          "Microsoft.QualityTools.Testing.Fakes": "18.1.1"
         },
         "runtime": {
           "Oprim.Domain.dll": {}
@@ -1627,22 +1625,6 @@
             "fileVersion": "8.0.23.53103"
           }
         }
-      },
-      "GeneralServices/1.0.0.0": {
-        "runtime": {
-          "GeneralServices.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "MrMetrorGeneralServices/1.0.0.0": {
-        "runtime": {
-          "MrMetrorGeneralServices.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -2561,16 +2543,6 @@
       "sha512": "sha512-Obg3a90MkOw9mYKxrardLpY2u0axDMrSmy4JCdq2cYbelM2cUwmUir5Bomvd1yxmPL9h5LVHU1tuKBZpUjfASg==",
       "path": "system.windows.extensions/8.0.0",
       "hashPath": "system.windows.extensions.8.0.0.nupkg.sha512"
-    },
-    "GeneralServices/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MrMetrorGeneralServices/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

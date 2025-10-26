@@ -28,7 +28,8 @@ builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddMudServices();
-
+builder.Services.AddMediatR(cfg => 
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 // -------------------------
 // 🔹 Build App
 // -------------------------

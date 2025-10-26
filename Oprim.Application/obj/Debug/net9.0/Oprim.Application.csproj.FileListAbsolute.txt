@@ -92,8 +92,6 @@ F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\Oprim.Application.dep
 F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\Oprim.Application.dll
 F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\Oprim.Application.pdb
 F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\Oprim.Domain.dll
-F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\GeneralServices.dll
-F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\MrMetrorGeneralServices.dll
 F:\GITHUB\OprimV2Blazor\Oprim.Application\bin\Debug\net9.0\Oprim.Domain.pdb
 F:\GITHUB\OprimV2Blazor\Oprim.Application\obj\Debug\net9.0\Oprim.Application.csproj.AssemblyReference.cache
 F:\GITHUB\OprimV2Blazor\Oprim.Application\obj\Debug\net9.0\Oprim.Application.GeneratedMSBuildEditorConfig.editorconfig
