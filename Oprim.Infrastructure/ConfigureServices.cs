@@ -9,8 +9,9 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        services.AddScoped<IFileService,FileService>();
+        services.AddScoped<IFileService, FileService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IMinioService, MinioService>();
         services.AddScoped<IConnectionMultiplexer>(_ =>
         {
             var configOptions = new ConfigurationOptions
@@ -22,6 +23,15 @@ public static class ConfigureServices
             return ConnectionMultiplexer.Connect(configOptions);
         });
         services.AddScoped<IResponseCacheService, ResponseCacheService>();
+        services.AddSingleton<IMinioService>(sp =>
+        {
+            var endpoint = "188.121.134.149:9999";
+            var accessKey = "minioadmin";
+            var secretKey = "minioadmin";
+            var useSsl = false;
+            return new MinioService(endpoint, accessKey, secretKey, useSsl);
+        });
+
         return services;
     }
 }
