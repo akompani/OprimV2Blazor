@@ -10,12 +10,13 @@ public class GetPunchesQueryHandler(IUnitOfWork unitOfWork) : IRequestHandler<Ge
     public async Task<List<PunchItem>> Handle(GetPunchesQuery request, CancellationToken cancellationToken)
     {
         var query = unitOfWork.GenericRepository<PunchItem>().TableNoTracking
-            .Include(x=>x.DepartmentItem)
-            .Where(p=> p.DepartmentItem.ProjectId == request.ProjectId)
+            .Include(x => x.DepartmentItem)
+            .Include(x=>x.Project)
             .AsNoTracking();
+            // .Where(p => p.DepartmentItem.ProjectId == request.ProjectId)
 
         //if(request.DepartmentItemId != 0) query = query.Where(p=> p.d)
-        
+
         return await query.ToListAsync(cancellationToken: cancellationToken);
     }
 }

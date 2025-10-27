@@ -2,22 +2,34 @@
 @using MediatR
 @using Microsoft.EntityFrameworkCore
 @using MudBlazor
+@using Newtonsoft.Json
 @using Oprim.Application.Interfaces
 @using Oprim.Application.Patterns.Quality.PunchItems.Queries.GetPunches
 @using Oprim.Domain.Entities.Quality
 @using Oprim.Ui.Components.Shared.Dialogs
+@using Oprim.Ui.Components.Shared.Dialogs.PunchItems
 @rendermode InteractiveServer
 <HeadContent>
     <style>
         .mud-input > input.mud-input-root-outlined, div.mud-input-slot.mud-input-root-outlined {
             padding: 10.5px 14px !important;
         }
+
         .mud-table-pagination {
             display: flex;
             justify-content: center;
         }
-        .mud-table-pagination-toolbar{
+
+        .mud-table-pagination-toolbar {
             border-top: none;
+        }
+
+        .mud-dialog .mud-dialog-content {
+            padding: 0px !important;
+        }
+
+        .mud-dialog .mud-dialog-title {
+            padding: 5px 15px !important;
         }
     </style>
 </HeadContent>
@@ -37,7 +49,7 @@
 
             <LoadingContent>
                 <div class="d-flex flex-column align-items-center justify-content-center p-5">
-                    <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+                    <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium"/>
                     <MudText Typo="Typo.subtitle1" Class="mt-2 text-center text-secondary">
                         در حال بارگذاری داده‌ها...
                     </MudText>
@@ -68,6 +80,7 @@
             <HeaderContent>
                 <MudTh>شناسه</MudTh>
                 <MudTh>یادداشت</MudTh>
+                <MudTh>نام پروژه</MudTh>
                 <MudTh>زمان ایجاد</MudTh>
                 <MudTh>لینک مخالف</MudTh>
                 <MudTh>عملیات</MudTh>
@@ -76,7 +89,8 @@
             <RowTemplate>
                 <MudTd DataLabel="Id">@context.Id</MudTd>
                 <MudTd DataLabel="Notes">@context.Notes</MudTd>
-                <MudTd DataLabel="CreateTime">@context.CreateTime</MudTd>
+                <MudTd DataLabel="Notes">@context.Project.Name</MudTd>
+                <MudTd DataLabel="CreateTime">@context.CreatePersianTime</MudTd>
                 <MudTd DataLabel="OpponentLinks">@context.OpponentLinks</MudTd>
                 <MudTd DataLabel="Actions" Class="text-nowrap">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
@@ -110,25 +124,32 @@
     private List<PunchItem> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
 
-    protected override async Task OnInitializedAsync()
+    private async Task LoadData()
     {
         try
         {
             _loading = true;
-            await Task.Delay(1000);
-            var query = await Mediator.Send(new GetPunchesQuery());
-            _items = query?.ToList() ?? [];
+            await Task.Delay(100);
+            _items = await Mediator.Send(new GetPunchesQuery());
+            Console.WriteLine(_items.Count);
         }
         finally
         {
             _loading = false;
         }
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
     }
 
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };
-        var dialog = DialogService.Show<PunchItemDialog>("افزودن آیتم", parameters);
+        var dialog = DialogService.Show<PunchItemDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
@@ -136,13 +157,14 @@
             var newItem = (PunchItem)result.Data!;
             await _ofWork.GenericRepository<PunchItem>().AddAsync(newItem, CancellationToken.None);
             _items.Add(newItem);
+            await LoadData();
         }
     }
 
     private async Task EditItem(PunchItem item)
     {
         var parameters = new DialogParameters { ["Item"] = item };
-        var dialog = DialogService.Show<PunchItemDialog>("ویرایش آیتم", parameters);
+        var dialog = DialogService.Show<PunchItemDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
@@ -151,10 +173,12 @@
             await _ofWork.GenericRepository<PunchItem>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
+            await LoadData();
         }
     }
 
     private bool FilterFunc1(PunchItem element) =>
         string.IsNullOrWhiteSpace(searchString1) ||
         element.Notes.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
+
 }

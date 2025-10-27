@@ -12,8 +12,8 @@ public class BaseEntity
     // [JsonIgnore] 
     // public bool IsDelete { get; set; }= false;
     
-    [ForeignKey("CreatorId")] public Stakeholder? Creator { get; set; }
-    public long CreatorId { get; set; }
+    // [ForeignKey("CreatorId")] public Stakeholder? Creator { get; set; }
+    // public long CreatorId { get; set; }
 
     [MaxLength(20)] public DateTime CreateTime { get; set; }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oprim.Domain.Database;
 
@@ -11,9 +12,11 @@ using Oprim.Domain.Database;
 namespace Oprim.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251027132152_punch item changes")]
+    partial class punchitemchanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -475,7 +478,7 @@ namespace Oprim.Domain.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("DepartmentItemId")
+                    b.Property<long>("DepartmentItemId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Notes")
@@ -489,7 +492,7 @@ namespace Oprim.Domain.Migrations
                     b.Property<long>("ProjectId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ProjectItemId")
+                    b.Property<long>("ProjectItemId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -664,7 +667,9 @@ namespace Oprim.Domain.Migrations
                 {
                     b.HasOne("Oprim.Domain.Entities.Scope.ProjectDepartmentItem", "DepartmentItem")
                         .WithMany()
-                        .HasForeignKey("DepartmentItemId");
+                        .HasForeignKey("DepartmentItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Oprim.Domain.Entities.PMO.Project", "Project")
                         .WithMany()
@@ -674,7 +679,9 @@ namespace Oprim.Domain.Migrations
 
                     b.HasOne("Oprim.Domain.Entities.PMO.ProjectItem", "ProjectItem")
                         .WithMany()
-                        .HasForeignKey("ProjectItemId");
+                        .HasForeignKey("ProjectItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("DepartmentItem");
 

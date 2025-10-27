@@ -1,0 +1,156 @@
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
+@using Oprim.Domain.Common.Utilities
+@using Oprim.Domain.Entities
+@using Oprim.Domain.Entities.PMO
+@using Oprim.Domain.Entities.Quality
+@using Oprim.Domain.Entities.Scope
+@rendermode InteractiveServer
+
+@* یا namespace مدل‌هات *@
+<MudDialog Style="min-width: 400px; max-width: 500px; padding: 13px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4"
+                 Style="padding-top: 0px !important;padding-bottom: 0px !important;">
+            <MudText Typo="Typo.h5" Class="mb-4">فرم ثبت اطلاعات</MudText>
+            <MudText Typo="Typo.subtitle1" Class="mb-1 mt-1">یادداشت</MudText>
+            <MudTextField
+                Placeholder="یادداشت"
+                @bind-Value="_model.Notes"
+                Required="true"
+                Variant="Variant.Outlined"
+                Margin="Margin.Dense"
+                Class="mb-2"/>
+            <MudText Typo="Typo.subtitle1" Class="mb-1">لینک مخالف</MudText>
+            <MudTextField
+                Placeholder="لینک مخالف"
+                @bind-Value="_model.OpponentLinks"
+                Variant="Variant.Outlined"
+                Margin="Margin.Dense"
+                Class="mb-2"/>
+            <MudText Typo="Typo.subtitle1" Class="mb-1">پروژه</MudText>
+
+            <MudSelect T="long" @bind-Value="_model.ProjectId"
+                       Variant="Variant.Outlined"
+                       Placeholder="پروژه">
+                @if (_projects.Count > 0)
+                {
+                    @foreach (var i in _projects)
+                    {
+                        <MudSelectItem T="long" Value="@i.Id">@i.Name</MudSelectItem>
+                    }
+                }
+                else
+                {
+                    <MudSelectItem T="long" Value="0">موردی یافت نشد</MudSelectItem>
+                }
+
+            </MudSelect>
+            <MudText Typo="Typo.subtitle1" Class="mb-1 mt-1">پروژه</MudText>
+            <MudSelect T="long?" @bind-Value="_model.ProjectItemId"
+                       Variant="Variant.Outlined"
+                       Placeholder="پروژه">
+                @if (_projectItems.Count > 0)
+                {
+                    @foreach (var i in _projectItems)
+                    {
+                        <MudSelectItem T="long?" Value="@i.Id">@i.Name</MudSelectItem>
+                    }
+                }
+                else
+                {
+                    <MudSelectItem T="long?" Value="0">موردی یافت نشد</MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudText Typo="Typo.subtitle1" Class="mb-1 mt-1">دپارتمان</MudText>
+            <MudSelect T="long?" @bind-Value="_model.DepartmentItemId"
+                       Variant="Variant.Outlined"
+                       Placeholder="دپارتمان">
+
+                @if (_departmentItems.Count > 0)
+                {
+                    <MudSelectItem T="long?" Value="0">انتخاب</MudSelectItem>
+                    @foreach (var i in _departmentItems)
+                    {
+                        <MudSelectItem T="long?" Value="@i.Id">@i.Name</MudSelectItem>
+                    }
+                }
+                else
+                {
+                    <MudSelectItem T="long?" Value="0">موردی یافت نشد</MudSelectItem>
+                }
+
+            </MudSelect>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100">
+            <MudButton
+                Variant="Variant.Text"
+                Color="Color.Secondary"
+                OnClick="Cancel"
+                Class="px-4">انصراف
+            </MudButton>
+            <MudButton
+                Variant="Variant.Filled"
+                Color="Color.Primary"
+                OnClick="Submit"
+                Class="px-4">ثبت
+            </MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public PunchItem? Item { get; set; } // اگر null بود یعنی Create، وگرنه Edit
+    [Inject] IMediator _mediator { set; get; }
+    private MudForm? _form;
+    private PunchItem _model = new();
+    private List<Project> _projects = [];
+    private List<ProjectItem> _projectItems = [];
+    private List<ProjectDepartmentItem> _departmentItems = [];
+
+    protected override void OnInitialized()
+    {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _projects = await _mediator.Send(new GetProjectsQuery());
+        _model = Item is null
+            ? new PunchItem { CreateTime = DateTime.Now }
+            : new PunchItem
+            {
+                Id = Item.Id,
+                Notes = Item.Notes,
+                CreateTime = DateTime.Now,
+                OpponentLinks = Item.OpponentLinks,
+                ProjectId = Item.ProjectId,
+                DepartmentItemId = Item.DepartmentItemId,
+                ProjectItemId = Item.ProjectItemId,
+            };
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+
+        if (_form.IsValid)
+            MudDialog.Close(DialogResult.Ok(_model));
+        _model = null;
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated()
+    {
+    }
+
+}
