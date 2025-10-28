@@ -1,18 +1,184 @@
 @using MudBlazor
+@using Oprim.Domain.Common.Utilities
+@using Oprim.Domain.Entities.PMO
 @using Oprim.Domain.Entities.Quality
+@using Oprim.Domain.Enums.Project
 @rendermode InteractiveServer
 
-<MudDialog Style="min-width: 380px" >
+<MudDialog Style="min-width: 900px; max-width: 1100px; padding: 16px; border-radius: 8px;">
     <DialogContent>
-        <MudForm @ref="_form" Validated="OnValidated">
-            <MudTextField Label="یادداشت" @bind-Value="_model.Notes" Required="true" />
-            <MudTextField Label="زمان ایجاد" @bind-Value="_model.CreateTime" Required="true" />
-            <MudTextField Label="لینک مخالف" @bind-Value="_model.OpponentLinks" />
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">فرم ثبت پروژه</MudText>
+
+            <MudGrid GutterSize="16px">
+                <!-- ردیف اول -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد پروژه</MudText>
+                    <MudTextField @bind-Value="_model.Code" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">شماره قرارداد</MudText>
+                    <MudTextField @bind-Value="_model.No" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- نام پروژه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام پروژه</MudText>
+                    <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">مکان</MudText>
+                    <MudTextField @bind-Value="_model.Location" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- نام‌ها -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کارفرما</MudText>
+                    <MudTextField @bind-Value="_model.ClientName" Variant="Variant.Outlined"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">پیمانکار</MudText>
+                    <MudTextField @bind-Value="_model.ContractorName" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- تاریخ‌ها -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ قرارداد</MudText>
+                    <MudDatePicker @bind-Date="_contractDate" Variant="Variant.Outlined"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ شروع</MudText>
+                    <MudDatePicker @bind-Date="_startDate" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ پایان</MudText>
+                    <MudDatePicker @bind-Date="_finishDate" Variant="Variant.Outlined"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ تداوم قرارداد</MudText>
+                    <MudDatePicker @bind-Date="_contractContinuousDate" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- مقادیر عددی -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">مدت قرارداد (روز)</MudText>
+                    <MudNumericField @bind-Value="_model.ContractDurationDays" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تداوم قرارداد (روز)</MudText>
+                    <MudNumericField @bind-Value="_model.ContractContinuousDays" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- مبلغ پایه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">مبلغ پایه</MudText>
+                    <MudNumericField @bind-Value="_model.BaseAmount" Variant="Variant.Outlined"
+                                     Adornment="Adornment.End" AdornmentText="ریال" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- نوع طرح -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نوع طرح</MudText>
+                    <MudSelect T="ProjectPlanTypes" @bind-Value="_model.PlanType" Variant="Variant.Outlined">
+                        @foreach (var t in Enum.GetValues<ProjectPlanTypes>())
+                        {
+                            <MudSelectItem T="ProjectPlanTypes" Value="@t">@t.ToDisplay()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- مشاور -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام مشاور</MudText>
+                    <MudTextField @bind-Value="_model.ConsultantName" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- فهرست‌بهایی -->
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" @bind-Checked="_model.IsFehrestic" Color="Color.Primary"
+                               Label="فهرست‌بهایی است"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">سال فهرست‌بها</MudText>
+                    <MudNumericField @bind-Value="_model.FehrestYear" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- تعدیل -->
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" @bind-Checked="_model.Escalation" Color="Color.Primary" Label="تعدیل دارد"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">دوره پایه تعدیل</MudText>
+                    <MudNumericField @bind-Value="_model.EscalationBasePeriod" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- اعشار تعدیل -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تعداد رقم اعشار تعدیل</MudText>
+                    <MudNumericField @bind-Value="_model.EscalationDecimal" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- ضریب‌ها -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد تجهیز کارگاه</MudText>
+                    <MudNumericField @bind-Value="_model.SiteMobilizationFieldCode" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ضریب بالاسری</MudText>
+                    <MudNumericField @bind-Value="_model.OverheadFactor" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- تاریخ پیشنهاد -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ پیشنهاد</MudText>
+                    <MudDatePicker @bind-Date="_offerDate" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ضریب پیشنهاد</MudText>
+                    <MudNumericField @bind-Value="_model.OfferFactor" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- سایر فیلدها -->
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" @bind-Checked="_model.Apply76574" Color="Color.Primary" Label="اعمال ۷۶۵۷۴"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نوع مؤلفه</MudText>
+                    <MudSelect T="ProjectComponentTypes" @bind-Value="_model.ComponentType" Variant="Variant.Outlined">
+                        @foreach (var t in Enum.GetValues<ProjectComponentTypes>())
+                        {
+                            <MudSelectItem T="ProjectComponentTypes" Value="@t">@t.ToDisplay()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">پیشرفت آخرین بروزرسانی</MudText>
+                    <MudNumericField @bind-Value="_model.LastUpdateProgress" Variant="Variant.Outlined"
+                                     HideSpinButtons="true"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" @bind-Checked="_model.Lock" Color="Color.Error" Label="قفل شده"/>
+                </MudItem>
+            </MudGrid>
         </MudForm>
     </DialogContent>
 
     <DialogActions>
-        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="mt-4">
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
             <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
             <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
         </MudStack>
@@ -22,34 +188,92 @@
 
 @code {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
-
-    [Parameter] public PunchItem? Item { get; set; }  // اگر null بود یعنی Create، وگرنه Edit
+    [Parameter] public Project? Item { get; set; }
 
     private MudForm? _form;
-    private PunchItem _model = new();
+    private Project _model = new();
+
+    // متغیرهای جدا برای تاریخ nullable
+    private DateTime? _contractDate;
+    private DateTime? _startDate;
+    private DateTime? _contractContinuousDate;
+    private DateTime? _finishDate;
+    private DateTime? _offerDate;
 
     protected override void OnInitialized()
     {
-        _model = Item is null
-            ? new PunchItem { CreateTime = DateTime.Now }
-            : new PunchItem
+        if (Item is null)
+        {
+            _model = new Project();
+            _contractDate = DateTime.Now;
+            _startDate = DateTime.Now;
+            _finishDate = DateTime.Now;
+            _offerDate = DateTime.Now;
+            _contractContinuousDate = DateTime.Now;
+        }
+        else
+        {
+            _model = new Project
             {
                 Id = Item.Id,
-                Notes = Item.Notes,
+                Code = Item.Code,
+                No = Item.No,
+                Name = Item.Name,
+                ClientName = Item.ClientName,
+                ContractorName = Item.ContractorName,
+                BaseAmount = Item.BaseAmount,
+                PlanType = Item.PlanType,
+                ContractDate = Item.ContractDate,
+                FinishDate = Item.FinishDate,
+                Apply76574 = Item.Apply76574,
+                Escalation = Item.Escalation,
+                Location = Item.Location,
+                Lock = Item.Lock,
+                OfferDate = Item.OfferDate,
+                ComponentType = Item.ComponentType,
+                ConsultantName = Item.ConsultantName,
+                StartDate =Item.StartDate ,
                 CreateTime = Item.CreateTime,
-                OpponentLinks = Item.OpponentLinks
+                EscalationDecimal =Item.EscalationDecimal ,
+                FehrestYear =Item.FehrestYear ,
+                IsFehrestic =Item.IsFehrestic,
+                OfferFactor = Item.OfferFactor,
+                OverheadFactor =Item.OverheadFactor ,
+                ContractContinuousDate = Item.ContractContinuousDate,
+                ContractContinuousDays = Item.ContractContinuousDays,
+                ContractDurationDays =Item.ContractDurationDays ,
+                EscalationBasePeriod =Item.EscalationBasePeriod ,
+                LastUpdateProgress =Item.LastUpdateProgress ,
+                SiteMobilizationFieldCode = Item.SiteMobilizationFieldCode
             };
+
+            _contractDate = Item.ContractDate;
+            _startDate = Item.StartDate;
+            _finishDate = Item.FinishDate;
+            _contractContinuousDate = Item.ContractDate;
+            _offerDate = Item.OfferDate;
+        }
     }
 
     private async Task Submit()
     {
         await _form!.Validate();
-
         if (_form.IsValid)
+        {
+            _model.ContractDate = _contractDate ?? DateTime.Now;
+            _model.StartDate = _startDate ?? DateTime.Now;
+            _model.FinishDate = _finishDate ?? DateTime.Now;
+            _model.ContractDate = _contractContinuousDate ?? DateTime.Now;
+            _model.OfferDate = _offerDate ?? DateTime.Now;
+
             MudDialog.Close(DialogResult.Ok(_model));
+        }
     }
 
     private void Cancel() => MudDialog.Cancel();
 
-    private void OnValidated() { }
+    private void OnValidated()
+    {
+    }
+
 }

@@ -12,17 +12,28 @@
 @using Oprim.Ui.Components.Shared.Dialogs.Projects
 
 @rendermode InteractiveServer
+
 <HeadContent>
     <style>
         .mud-input > input.mud-input-root-outlined, div.mud-input-slot.mud-input-root-outlined {
             padding: 10.5px 14px !important;
         }
+
         .mud-table-pagination {
             display: flex;
             justify-content: center;
         }
+
         .mud-table-pagination-toolbar {
             border-top: none;
+        }
+
+        .mud-dialog .mud-dialog-content {
+            padding: 10px !important;
+        }
+
+        .mud-dialog .mud-dialog-title {
+            padding: 5px 15px !important;
         }
     </style>
 </HeadContent>
@@ -67,23 +78,35 @@
                     افزودن
                 </MudButton>
                 <MudSpacer/>
-                <MudText Typo="Typo.h6" Class="font-weight-bold">پروژها</MudText>
+                <MudText Typo="Typo.h6" Class="font-weight-bold">Punch Items</MudText>
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh>شناسه</MudTh>
-                <MudTh>یادداشت</MudTh>
-                <MudTh>زمان ایجاد</MudTh>
-                <MudTh>لینک مخالف</MudTh>
+                <MudTh>کد پروژه</MudTh>
+                <MudTh>شماره قرارداد</MudTh>
+                <MudTh>نام پروژه</MudTh>
+                <MudTh>کارفرما</MudTh>
+                <MudTh>پیمانکار</MudTh>
+                <MudTh>تاریخ قرارداد</MudTh>
+                <MudTh>تاریخ شروع</MudTh>
+                <MudTh>تاریخ پایان</MudTh>
+                <MudTh>مبلغ پایه</MudTh>
+                <MudTh>نوع طرح</MudTh>
                 <MudTh>عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="Id">@context.Id</MudTd>
-                <MudTd DataLabel="Notes">@context.Code</MudTd>
-                <MudTd DataLabel="CreateTime">@context.Name</MudTd>
-                <MudTd DataLabel="OpponentLinks">@context.CreateTime.ToPersianTime()</MudTd>
-                <MudTd DataLabel="Actions" Class="text-nowrap">
+                <MudTd DataLabel="کد پروژه">@context.Code</MudTd>
+                <MudTd DataLabel="شماره قرارداد">@context.No</MudTd>
+                <MudTd DataLabel="نام پروژه">@context.Name</MudTd>
+                <MudTd DataLabel="کارفرما">@context.ClientName</MudTd>
+                <MudTd DataLabel="پیمانکار">@context.ContractorName</MudTd>
+                <MudTd DataLabel="تاریخ قرارداد">@context.ContractPersianDate</MudTd>
+                <MudTd DataLabel="تاریخ شروع">@context.StartPersianDate</MudTd>
+                <MudTd DataLabel="تاریخ پایان">@context.FinishPersianDate</MudTd>
+                <MudTd DataLabel="مبلغ پایه">@context.BaseAmount.ToString("N0")</MudTd>
+                <MudTd DataLabel="نوع طرح">@context.PlanType</MudTd>
+                <MudTd DataLabel="عملیات" Class="text-nowrap">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
                                    OnClick="@(() => EditItem(context))"/>
@@ -91,6 +114,7 @@
                                    Color="Color.Error"/>
                 </MudTd>
             </RowTemplate>
+
 
             <NoRecordsContent>
                 <MudText Class="text-right pr-4 my-3" Typo="Typo.body1" Color="Color.Secondary">
@@ -115,25 +139,32 @@
     private List<Project> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
 
-    protected override async Task OnInitializedAsync()
+    private async Task LoadData()
     {
         try
         {
             _loading = true;
-            await Task.Delay(1000);
-            var query = await Mediator.Send(new GetProjectsQuery());
-            _items = query?.ToList() ?? [];
+            await Task.Delay(100);
+            _items = await Mediator.Send(new GetProjectsQuery());
+            Console.WriteLine(_items.Count);
         }
         finally
         {
             _loading = false;
         }
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
     }
 
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };
-        var dialog = DialogService.Show<ProjectDialog>("افزودن آیتم", parameters);
+        var dialog = DialogService.Show<ProjectDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
@@ -141,13 +172,14 @@
             var newItem = (Project)result.Data!;
             await _ofWork.GenericRepository<Project>().AddAsync(newItem, CancellationToken.None);
             _items.Add(newItem);
+            await LoadData();
         }
     }
 
     private async Task EditItem(Project item)
     {
         var parameters = new DialogParameters { ["Item"] = item };
-        var dialog = DialogService.Show<ProjectDialog>("ویرایش آیتم", parameters);
+        var dialog = DialogService.Show<ProjectDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
@@ -156,6 +188,7 @@
             await _ofWork.GenericRepository<Project>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
+            await LoadData();
         }
     }
 
