@@ -10,7 +10,8 @@ public class GetProjectCostBreakdownsQueryHandler(IUnitOfWork unitOfWork) : IReq
     public async Task<List<ProjectCostBreakdown>> Handle(GetProjectCostBreakdownsQuery request, CancellationToken cancellationToken)
     {
         var query = unitOfWork.GenericRepository<ProjectCostBreakdown>().TableNoTracking
-            .Where(c=> c.ProjectId == request.ProjectId)
+            .Include(x=>x.Project)
+            // .Where(c=> c.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         return await query.ToListAsync(cancellationToken: cancellationToken);
