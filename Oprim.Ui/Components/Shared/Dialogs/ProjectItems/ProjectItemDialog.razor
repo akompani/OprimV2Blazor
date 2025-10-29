@@ -1,5 +1,153 @@
-<h3>ProjectItemDialog</h3>
+@using MediatR
+@using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
+@using Oprim.Domain.Entities.PMO
+@using MudBlazor
+@using Oprim.Application.Patterns.Cost.ProjectCostBreakdowns.Queries.GetProjectCostBreakdowns
+@using Oprim.Application.Patterns.PMO.ProjectItemGroups.Queries.GetProjectItemGroups
+@using Oprim.Domain.Entities.Cost
+
+@rendermode InteractiveServer
+
+<MudDialog Style="min-width: 500px; max-width: 700px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+            <MudGrid GutterSize="16px">
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام</MudText>
+                    <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد</MudText>
+                    <MudTextField @bind-Value="_model.Code" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">EstimateCost</MudText>
+                    <MudTextField @bind-Value="_model.EstimateCost" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">TotalCost</MudText>
+                    <MudTextField @bind-Value="_model.TotalCost" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">Unit</MudText>
+                    <MudTextField @bind-Value="_model.Unit" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>  
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">EngineeringLead</MudText>
+                    <MudTextField @bind-Value="_model.EngineeringLead" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">EstimateQuantity</MudText>
+                    <MudTextField @bind-Value="_model.EstimateQuantity" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ProcurementLead</MudText>
+                    <MudTextField @bind-Value="_model.ProcurementLead" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">TotalQuantity</MudText>
+                    <MudTextField @bind-Value="_model.TotalQuantity" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+     
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">QuantityForOneHour</MudText>
+                    <MudTextField @bind-Value="_model.QuantityForOneHour" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">گروه</MudText>
+                    <MudSelect T="long" @bind-Value="_model.ProjectItemGroupId" Variant="Variant.Outlined">
+                        @foreach (var t in _projects)
+                        {
+                            <MudSelectItem T="long" Value="@t.Id">@t.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem> 
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">Project Cost Breakdown</MudText>
+                    <MudSelect T="long" @bind-Value="_model.ProjectCostBreakdownId" Variant="Variant.Outlined">
+                        @foreach (var t in _breakdowns)
+                        {
+                            <MudSelectItem T="long" Value="@t.Id">@t.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- مشاور -->
+
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
 
 @code {
-    
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public ProjectItem? Item { get; set; }
+    [Inject] private IMediator _mediator { set; get; }
+    private MudForm? _form;
+    private ProjectItem _model = new();
+    private List<ProjectItemGroup> _projects = [];
+    private List<ProjectCostBreakdown> _breakdowns = [];
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _model = new ProjectItem();
+            _titlePage = "فرم ثبت  گروه پروژه";
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش گروه پروژه";
+            _model = new ProjectItem
+            {
+                Id = Item.Id,
+                Name = Item.Name,
+                CreateTime = Item.CreateTime,
+                ProjectId = Item.ProjectId,
+                Code = Item.Code,
+                EstimateCost = Item.EstimateCost,
+                TotalCost = Item.TotalCost,
+                Unit = Item.Unit,
+                EngineeringLead = Item.EngineeringLead,
+                EstimateQuantity = Item.EstimateQuantity,
+                ProcurementLead = Item.ProcurementLead,
+                TotalQuantity = Item.TotalQuantity,
+                EstimateUnitCost = Item.EstimateCost,
+                ProjectCostBreakdownId = Item.ProjectCostBreakdownId,
+                ProjectItemGroupId = Item.ProjectItemGroupId,
+                QuantityForOneHour = Item.QuantityForOneHour,
+            };
+        }
+      
+        _projects = await _mediator.Send(new GetProjectItemGroupsQuery());
+        _breakdowns = await _mediator.Send(new GetProjectCostBreakdownsQuery());
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            _model.ProjectId = _projects.FirstOrDefault(x => x.Id == _model.ProjectItemGroupId).ProjectId;
+            MudDialog.Close(DialogResult.Ok(_model));
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated()
+    {
+    }
+
 }

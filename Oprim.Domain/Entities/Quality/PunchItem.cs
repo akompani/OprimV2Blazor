@@ -28,8 +28,8 @@ namespace Oprim.Domain.Entities.Quality
         /// <summary>
         /// Creator id می تواند برای همه entity ها باشه
         /// </summary>
-        // [ForeignKey("CreatorId")] public Stakeholder Creator { get; set; }
-        // public long CreatorId { get; set; }
+        [ForeignKey("CreatorId")] public Stakeholder Creator { get; set; }
+        public long CreatorId { get; set; }
 
         public string OpponentLinks { get; set; }
 

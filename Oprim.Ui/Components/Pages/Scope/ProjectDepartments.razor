@@ -1,10 +1,11 @@
-@page "/ProjectItemGroups"
+@page "/ProjectDepartments"
 @using MediatR
-@using MudBlazor
 @using Oprim.Application.Interfaces
-@using Oprim.Application.Patterns.PMO.ProjectItemGroups.Queries.GetProjectItemGroups
-@using Oprim.Domain.Entities.PMO
-@using Oprim.Ui.Components.Shared.Dialogs.Projects
+@using Oprim.Application.Patterns.Scope.ProjectDepartments.Queries.GetDepartments
+@using Oprim.Domain.Entities.Scope
+@using Oprim.Ui.Components.Shared.Dialogs.ProjectDepartmentDialogs
+@using MudBlazor
+
 @rendermode InteractiveServer
 
 <HeadContent>
@@ -42,7 +43,7 @@
         <MudTable Items="@_items"
                   Hover="true"
                   Dense="true"
-                  Filter="new Func<ProjectItemGroup,bool>(FilterFunc1)"
+                  Filter="new Func<ProjectDepartment,bool>(FilterFunc1)"
                   @bind-SelectedItem="selectedItem1"
                   Class="w-100"
                   Loading="@_loading">
@@ -79,13 +80,16 @@
 
             <HeaderContent>
                 <MudTh>شماره</MudTh>
-                <MudTh>نام گروه</MudTh>
+                <MudTh>نام</MudTh>
+                <MudTh>کد</MudTh>
                 <MudTh>نام پروژه</MudTh>
+                <MudTh>عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
                 <MudTd DataLabel="کد پروژه">@context.Id</MudTd>
                 <MudTd DataLabel="شماره قرارداد">@context.Name</MudTd>
+                <MudTd DataLabel="شماره قرارداد">@context.Code</MudTd>
                 <MudTd DataLabel="نام پروژه">@context.Project.Name</MudTd>
                 <MudTd DataLabel="عملیات" Class="text-nowrap">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
@@ -116,8 +120,8 @@
     [Inject] IDialogService DialogService { get; set; } = default!;
 
     private string searchString1 = "";
-    private ProjectItemGroup? selectedItem1;
-    private List<ProjectItemGroup> _items = [];
+    private ProjectDepartment? selectedItem1;
+    private List<ProjectDepartment> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
 
     private async Task LoadData()
@@ -126,7 +130,7 @@
         {
             _loading = true;
             await Task.Delay(100);
-            _items = await Mediator.Send(new GetProjectItemGroupsQuery());
+            _items = await Mediator.Send(new GetDepartmentsQuery());
             Console.WriteLine(_items.Count);
         }
         finally
@@ -145,35 +149,35 @@
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };
-        var dialog = DialogService.Show<ProjectItemGroupDialog>("", parameters);
+        var dialog = DialogService.Show<ProjectDepartmentDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var newItem = (ProjectItemGroup)result.Data!;
-            await _ofWork.GenericRepository<ProjectItemGroup>().AddAsync(newItem, CancellationToken.None);
+            var newItem = (ProjectDepartment)result.Data!;
+            await _ofWork.GenericRepository<ProjectDepartment>().AddAsync(newItem, CancellationToken.None);
             _items.Add(newItem);
             await LoadData();
         }
     }
 
-    private async Task EditItem(ProjectItemGroup item)
+    private async Task EditItem(ProjectDepartment item)
     {
         var parameters = new DialogParameters { ["Item"] = item };
-        var dialog = DialogService.Show<ProjectItemGroupDialog>("", parameters);
+        var dialog = DialogService.Show<ProjectDepartmentDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var updated = (ProjectItemGroup)result.Data!;
-            await _ofWork.GenericRepository<ProjectItemGroup>().UpdateAsync(updated, CancellationToken.None);
+            var updated = (ProjectDepartment)result.Data!;
+            await _ofWork.GenericRepository<ProjectDepartment>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
             await LoadData();
         }
     }
 
-    private bool FilterFunc1(ProjectItemGroup element) =>
+    private bool FilterFunc1(ProjectDepartment element) =>
         string.IsNullOrWhiteSpace(searchString1) ||
         element.Name.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
 

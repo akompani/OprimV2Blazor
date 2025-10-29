@@ -12,7 +12,9 @@ public class GetProjectItemsQueryHandler(IUnitOfWork unitOfWork)
     {
         var query = unitOfWork.GenericRepository<ProjectItem>().TableNoTracking
             .Include(x => x.ProjectItemGroup)
-            .Where(p => p.ProjectItemGroup.ProjectId == request.ProjectId)
+            .Include(x=>x.Project)
+            .Include(x=>x.ProjectCostBreakdown)
+            // .Where(p => p.ProjectItemGroup.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         return await query.ToListAsync(cancellationToken: cancellationToken);

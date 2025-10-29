@@ -1,16 +1,17 @@
 @using MediatR
 @using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
-@using Oprim.Domain.Entities.Cost
 @using Oprim.Domain.Entities.PMO
+@using Oprim.Domain.Entities.Scope
 @using MudBlazor
 
 @rendermode InteractiveServer
 
-<MudDialog Style="min-width: 500px; max-width: 700px; padding: 16px; border-radius: 8px;">
+<MudDialog Style="min-width: 400px; max-width: 600px; padding: 16px; border-radius: 8px;">
     <DialogContent>
         <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
-                <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
             <MudGrid GutterSize="16px">
+                <!-- ردیف اول -->
                 <MudItem xs="12" sm="6">
                     <MudText Typo="Typo.subtitle1" Class="mb-1">نام</MudText>
                     <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true"/>
@@ -19,15 +20,8 @@
                     <MudText Typo="Typo.subtitle1" Class="mb-1">کد</MudText>
                     <MudTextField @bind-Value="_model.Code" Variant="Variant.Outlined" Required="true"/>
                 </MudItem>
-                <MudItem xs="12" sm="6">
-                    <MudText Typo="Typo.subtitle1" Class="mb-1">TopLevelId</MudText>
-                    <MudTextField @bind-Value="_model.TopLevelId" Variant="Variant.Outlined" Required="true"/>
-                </MudItem>
-                <MudItem xs="12" sm="6">
-                    <MudText Typo="Typo.subtitle1" Class="mb-1">TotalCost</MudText>
-                    <MudTextField @bind-Value="_model.TotalCost" Variant="Variant.Outlined" Required="true"/>
-                </MudItem>
-                <MudItem xs="12" sm="6">
+                <!-- نوع طرح -->
+                <MudItem xs="12" sm="12">
                     <MudText Typo="Typo.subtitle1" Class="mb-1">گروه</MudText>
                     <MudSelect T="long" @bind-Value="_model.ProjectId" Variant="Variant.Outlined">
                         @foreach (var t in _projects)
@@ -54,10 +48,10 @@
 
 @code {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
-    [Parameter] public ProjectCostBreakdown? Item { get; set; }
+    [Parameter] public ProjectDepartment? Item { get; set; }
     [Inject] private IMediator _mediator { set; get; }
     private MudForm? _form;
-    private ProjectCostBreakdown _model = new();
+    private ProjectDepartment _model = new();
     private List<Project> _projects = [];
     private string _titlePage = string.Empty;
 
@@ -65,22 +59,19 @@
     {
         if (Item is null)
         {
-            _model = new ProjectCostBreakdown();
+            _model = new ProjectDepartment();
             _titlePage = "فرم ثبت  گروه پروژه";
         }
         else
         {
             _titlePage = "فرم ویرایش گروه پروژه";
-            _model = new ProjectCostBreakdown
+            _model = new ProjectDepartment
             {
                 Id = Item.Id,
                 Name = Item.Name,
-                CreateTime = DateTime.Now,
+                CreateTime = Item.CreateTime,
                 ProjectId = Item.ProjectId,
-                Code = Item.Code,
-                EstimateCost = Item.EstimateCost,
-                TopLevelId = Item.TopLevelId,
-                TotalCost = Item.TotalCost,
+                Code = Item.Code
             };
         }
 

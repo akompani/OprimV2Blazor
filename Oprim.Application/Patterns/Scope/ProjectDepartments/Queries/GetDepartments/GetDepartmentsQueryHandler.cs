@@ -12,7 +12,8 @@ public class GetDepartmentsQueryHandler(IUnitOfWork _unitOfWork) : IRequestHandl
     public async Task<List<ProjectDepartment>> Handle(GetDepartmentsQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.GenericRepository<ProjectDepartment>().TableNoTracking
-            .Where(p=> p.ProjectId == request.ProjectId)
+            .Include(x=>x.Project)
+            // .Where(p=> p.ProjectId == request.ProjectId)
             .AsNoTracking();
         
         return await query.ToListAsync(cancellationToken: cancellationToken);

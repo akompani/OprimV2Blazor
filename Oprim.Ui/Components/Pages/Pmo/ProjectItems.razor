@@ -79,14 +79,19 @@
 
             <HeaderContent>
                 <MudTh>شماره</MudTh>
+                <MudTh>نام </MudTh>
                 <MudTh>نام گروه</MudTh>
                 <MudTh>نام پروژه</MudTh>
+                <MudTh>ProjectCostBreakdown</MudTh>
+                <MudTh>عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
                 <MudTd DataLabel="کد پروژه">@context.Id</MudTd>
                 <MudTd DataLabel="شماره قرارداد">@context.Name</MudTd>
+                <MudTd DataLabel="شماره قرارداد">@context.ProjectItemGroup.Name</MudTd>
                 <MudTd DataLabel="نام پروژه">@context.Project.Name</MudTd>
+                <MudTd DataLabel="نام پروژه">@context.ProjectCostBreakdown.Name</MudTd>
                 <MudTd DataLabel="عملیات" Class="text-nowrap">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
@@ -166,6 +171,7 @@
         if (!result.Canceled)
         {
             var updated = (ProjectItem)result.Data!;
+            await Task.Delay(100);
             await _ofWork.GenericRepository<ProjectItem>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
