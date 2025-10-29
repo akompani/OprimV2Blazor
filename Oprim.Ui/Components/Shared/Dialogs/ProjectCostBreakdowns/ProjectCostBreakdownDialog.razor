@@ -9,7 +9,7 @@
 <MudDialog Style="min-width: 500px; max-width: 700px; padding: 16px; border-radius: 8px;">
     <DialogContent>
         <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
-                <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
             <MudGrid GutterSize="16px">
                 <MudItem xs="12" sm="6">
                     <MudText Typo="Typo.subtitle1" Class="mb-1">نام</MudText>
@@ -50,57 +50,3 @@
         </MudStack>
     </DialogActions>
 </MudDialog>
-
-
-@code {
-    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
-    [Parameter] public ProjectCostBreakdown? Item { get; set; }
-    [Inject] private IMediator _mediator { set; get; }
-    private MudForm? _form;
-    private ProjectCostBreakdown _model = new();
-    private List<Project> _projects = [];
-    private string _titlePage = string.Empty;
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (Item is null)
-        {
-            _model = new ProjectCostBreakdown();
-            _titlePage = "فرم ثبت  گروه پروژه";
-        }
-        else
-        {
-            _titlePage = "فرم ویرایش گروه پروژه";
-            _model = new ProjectCostBreakdown
-            {
-                Id = Item.Id,
-                Name = Item.Name,
-                CreateTime = DateTime.Now,
-                ProjectId = Item.ProjectId,
-                Code = Item.Code,
-                EstimateCost = Item.EstimateCost,
-                TopLevelId = Item.TopLevelId,
-                TotalCost = Item.TotalCost,
-            };
-        }
-
-        _projects = await _mediator.Send(new GetProjectsQuery());
-        StateHasChanged();
-    }
-
-    private async Task Submit()
-    {
-        await _form!.Validate();
-        if (_form.IsValid)
-        {
-            MudDialog.Close(DialogResult.Ok(_model));
-        }
-    }
-
-    private void Cancel() => MudDialog.Cancel();
-
-    private void OnValidated()
-    {
-    }
-
-}
