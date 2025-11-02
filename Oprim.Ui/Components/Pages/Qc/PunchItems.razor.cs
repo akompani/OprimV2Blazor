@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Oprim.Application.Dtos.PageableParams;
 using Oprim.Application.Interfaces;
 using Oprim.Application.Patterns.Quality.PunchItems.Queries.GetPunches;
 using Oprim.Domain.Entities.Quality;
@@ -53,7 +54,19 @@ public partial class PunchItems
             await LoadData();
         }
     }
+    private PageableParam _filter = new PageableParam
+    {
+        PageSize = 10,
+        Page = 1,
+        Search = string.Empty,
+        TotalPage = 0
+    };
 
+    private async Task OnPageChanged(int newPage)
+    {
+        _filter.Page = newPage;
+        await LoadData();
+    }
     private async Task EditItem(PunchItem item)
     {
         var parameters = new DialogParameters { ["Item"] = item };

@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Oprim.Application.Dtos.PageableParams;
 using Oprim.Application.Interfaces;
 using Oprim.Application.Patterns.Cost.ProjectCostBreakdowns.Queries.GetProjectCostBreakdowns;
 using Oprim.Domain.Entities.Cost;
@@ -16,15 +17,15 @@ public partial class ProjectCostBreakdowns
     private ProjectCostBreakdown? selectedItem1;
     private List<ProjectCostBreakdown> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
+    
+
 
     private async Task LoadData()
     {
         try
         {
             _loading = true;
-            await Task.Delay(100);
             _items = await Mediator.Send(new GetProjectCostBreakdownsQuery());
-            Console.WriteLine(_items.Count);
         }
         finally
         {
@@ -38,7 +39,19 @@ public partial class ProjectCostBreakdowns
     {
         await LoadData();
     }
+    private PageableParam _filter = new PageableParam
+    {
+        PageSize = 10,
+        Page = 1,
+        Search = string.Empty,
+        TotalPage = 0
+    };
 
+    private async Task OnPageChanged(int newPage)
+    {
+        _filter.Page = newPage;
+        await LoadData();
+    }
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };

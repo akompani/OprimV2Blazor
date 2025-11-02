@@ -38,7 +38,7 @@
 <MudPopoverProvider/>
 <MudDialogProvider/>
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6">
-    <MudPaper Elevation="1" Class="p-4 rounded-2xl" Style="box-shadow: none">
+    <MudPaper Elevation="1" Class="rounded-2xl" Style="box-shadow: none">
 
         <MudTable Items="@_items"
                   Hover="true"
@@ -79,27 +79,27 @@
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh>شماره</MudTh>
-                <MudTh>کد پروژه</MudTh>
-                <MudTh>نام</MudTh>
-                <MudTh>نام پروژه</MudTh>
-                <MudTh>TopLevelId</MudTh>
-                <MudTh>EstimateCost</MudTh>
-                <MudTh>TotalCost</MudTh>
-                <MudTh>تاریخ ایجاد</MudTh>
-                <MudTh>عملیات</MudTh>
+                <MudTh Class="th-mud-table">شماره</MudTh>
+                <MudTh Class="th-mud-table">کد پروژه</MudTh>
+                <MudTh Class="th-mud-table">نام</MudTh>
+                <MudTh Class="th-mud-table">نام پروژه</MudTh>
+                <MudTh Class="th-mud-table">TopLevelId</MudTh>
+                <MudTh Class="th-mud-table">EstimateCost</MudTh>
+                <MudTh Class="th-mud-table">TotalCost</MudTh>
+                <MudTh Class="th-mud-table">تاریخ ایجاد</MudTh>
+                <MudTh Class="th-mud-table">عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="کد پروژه">@context.Id</MudTd>
-                <MudTd DataLabel="کد پروژه">@context.Code</MudTd>
-                <MudTd DataLabel="شماره قرارداد">@context.Name</MudTd>
-                <MudTd DataLabel="نام پروژه">@context.Project.Name</MudTd>
-                <MudTd DataLabel="کارفرما">@context.TopLevelId</MudTd>
-                <MudTd DataLabel="پیمانکار">@context.EstimateCost.ToString("N0")</MudTd>
-                <MudTd DataLabel="تاریخ قرارداد">@context.TotalCost.ToString("N0")</MudTd>
-                <MudTd DataLabel="تاریخ قرارداد">@context.CreatePersianTime</MudTd>
-                <MudTd DataLabel="عملیات" Class="text-nowrap">
+                <MudTd Class="td-mud-table" DataLabel="کد پروژه">@context.Id</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="کد پروژه">@context.Code</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="نام پروژه">@context.Project.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="کارفرما">@context.TopLevelId</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="پیمانکار">@context.EstimateCost.ToString("N0")</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="تاریخ قرارداد">@context.TotalCost.ToString("N0")</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="تاریخ قرارداد">@context.CreatePersianTime</MudTd>
+                <MudTd Class="td-mud-table text-nowrap" DataLabel="عملیات" >
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
                                    OnClick="@(() => EditItem(context))"/>
@@ -116,7 +116,13 @@
             </NoRecordsContent>
 
             <PagerContent>
-                <MudTablePager/>
+                <div class="d-flex flex-column align-center pb-2">
+                    <MudPagination ShowFirstButton="false"
+                                   Selected="_filter.Page"
+                                   ShowLastButton="false"
+                                   Count="_filter.TotalPage"
+                                   SelectedChanged="OnPageChanged" Class="mt-4"/>
+                </div>
             </PagerContent>
         </MudTable>
     </MudPaper>

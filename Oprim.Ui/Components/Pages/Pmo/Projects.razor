@@ -41,7 +41,7 @@
 <MudPopoverProvider/>
 <MudDialogProvider/>
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6">
-    <MudPaper Elevation="1" Class="p-4 rounded-2xl" Style="box-shadow: none">
+    <MudPaper Elevation="1" Class="rounded-2xl" Style="box-shadow: none">
 
         <MudTable Items="@_items"
                   Hover="true"
@@ -82,31 +82,31 @@
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh>کد پروژه</MudTh>
-                <MudTh>شماره قرارداد</MudTh>
-                <MudTh>نام پروژه</MudTh>
-                <MudTh>کارفرما</MudTh>
-                <MudTh>پیمانکار</MudTh>
-                <MudTh>تاریخ قرارداد</MudTh>
-                <MudTh>تاریخ شروع</MudTh>
-                <MudTh>تاریخ پایان</MudTh>
-                <MudTh>مبلغ پایه</MudTh>
-                <MudTh>نوع طرح</MudTh>
-                <MudTh>عملیات</MudTh>
+                <MudTh Class="th-mud-table">کد پروژه</MudTh>
+                <MudTh Class="th-mud-table">شماره قرارداد</MudTh>
+                <MudTh Class="th-mud-table">نام پروژه</MudTh>
+                <MudTh Class="th-mud-table">کارفرما</MudTh>
+                <MudTh Class="th-mud-table">پیمانکار</MudTh>
+                <MudTh Class="th-mud-table">تاریخ قرارداد</MudTh>
+                <MudTh Class="th-mud-table">تاریخ شروع</MudTh>
+                <MudTh Class="th-mud-table">تاریخ پایان</MudTh>
+                <MudTh Class="th-mud-table">مبلغ پایه</MudTh>
+                <MudTh Class="th-mud-table">نوع طرح</MudTh>
+                <MudTh Class="th-mud-table">عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="کد پروژه">@context.Code</MudTd>
-                <MudTd DataLabel="شماره قرارداد">@context.No</MudTd>
-                <MudTd DataLabel="نام پروژه">@context.Name</MudTd>
-                <MudTd DataLabel="کارفرما">@context.ClientName</MudTd>
-                <MudTd DataLabel="پیمانکار">@context.ContractorName</MudTd>
-                <MudTd DataLabel="تاریخ قرارداد">@context.ContractPersianDate</MudTd>
-                <MudTd DataLabel="تاریخ شروع">@context.StartPersianDate</MudTd>
-                <MudTd DataLabel="تاریخ پایان">@context.FinishPersianDate</MudTd>
-                <MudTd DataLabel="مبلغ پایه">@context.BaseAmount.ToString("N0")</MudTd>
-                <MudTd DataLabel="نوع طرح">@context.PlanType</MudTd>
-                <MudTd DataLabel="عملیات" Class="text-nowrap">
+                <MudTd Class="td-mud-table" DataLabel="کد پروژه">@context.Code</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.No</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="نام پروژه">@context.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="کارفرما">@context.ClientName</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="پیمانکار">@context.ContractorName</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="تاریخ قرارداد">@context.ContractPersianDate</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="تاریخ شروع">@context.StartPersianDate</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="تاریخ پایان">@context.FinishPersianDate</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="مبلغ پایه">@context.BaseAmount.ToString("N0")</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="نوع طرح">@context.PlanType</MudTd>
+                <MudTd Class="td-mud-table text-nowrap" DataLabel="عملیات" >
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
                                    OnClick="@(() => EditItem(context))"/>
@@ -123,7 +123,13 @@
             </NoRecordsContent>
 
             <PagerContent>
-                <MudTablePager/>
+                <div class="d-flex flex-column align-center pb-2">
+                    <MudPagination ShowFirstButton="false"
+                                   Selected="_filter.Page"
+                                   ShowLastButton="false"
+                                   Count="_filter.TotalPage"
+                                   SelectedChanged="OnPageChanged" Class="mt-4"/>
+                </div>
             </PagerContent>
         </MudTable>
     </MudPaper>

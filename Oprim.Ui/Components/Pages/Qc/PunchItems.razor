@@ -37,7 +37,7 @@
 <MudPopoverProvider/>
 <MudDialogProvider/>
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6">
-    <MudPaper Elevation="1" Class="p-4 rounded-2xl" Style="box-shadow: none">
+    <MudPaper Elevation="1" Class="rounded-2xl" Style="box-shadow: none">
 
         <MudTable Items="@_items"
                   Hover="true"
@@ -78,21 +78,21 @@
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh>شناسه</MudTh>
-                <MudTh>یادداشت</MudTh>
-                <MudTh>نام پروژه</MudTh>
-                <MudTh>زمان ایجاد</MudTh>
-                <MudTh>لینک مخالف</MudTh>
-                <MudTh>عملیات</MudTh>
+                <MudTh Class="th-mud-table">شناسه</MudTh>
+                <MudTh Class="th-mud-table">یادداشت</MudTh>
+                <MudTh Class="th-mud-table">نام پروژه</MudTh>
+                <MudTh Class="th-mud-table">زمان ایجاد</MudTh>
+                <MudTh Class="th-mud-table">لینک مخالف</MudTh>
+                <MudTh Class="th-mud-table">عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="Id">@context.Id</MudTd>
-                <MudTd DataLabel="Notes">@context.Notes</MudTd>
-                <MudTd DataLabel="Notes">@context.Project.Name</MudTd>
-                <MudTd DataLabel="CreateTime">@context.CreatePersianTime</MudTd>
-                <MudTd DataLabel="OpponentLinks">@context.OpponentLinks</MudTd>
-                <MudTd DataLabel="Actions" Class="text-nowrap">
+                <MudTd Class="td-mud-table" DataLabel="Id">@context.Id</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="Notes">@context.Notes</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="Notes">@context.Project.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="CreateTime">@context.CreatePersianTime</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="OpponentLinks">@context.OpponentLinks</MudTd>
+                <MudTd Class="td-mud-table text-nowrap" DataLabel="Actions" >
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
                                    OnClick="@(() => EditItem(context))"/>
@@ -108,7 +108,13 @@
             </NoRecordsContent>
 
             <PagerContent>
-                <MudTablePager/>
+                <div class="d-flex flex-column align-center pb-2">
+                    <MudPagination ShowFirstButton="false"
+                                   Selected="_filter.Page"
+                                   ShowLastButton="false"
+                                   Count="_filter.TotalPage"
+                                   SelectedChanged="OnPageChanged" Class="mt-4"/>
+                </div>
             </PagerContent>
         </MudTable>
     </MudPaper>

@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Oprim.Application.Dtos.PageableParams;
 using Oprim.Application.Interfaces;
 using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects;
 using Oprim.Domain.Entities.PMO;
@@ -38,7 +39,19 @@ public partial class Projects
     {
         await LoadData();
     }
+    private PageableParam _filter = new PageableParam
+    {
+        PageSize = 10,
+        Page = 1,
+        Search = string.Empty,
+        TotalPage = 0
+    };
 
+    private async Task OnPageChanged(int newPage)
+    {
+        _filter.Page = newPage;
+        await LoadData();
+    }
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };

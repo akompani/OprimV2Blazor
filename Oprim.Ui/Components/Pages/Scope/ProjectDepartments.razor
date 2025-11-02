@@ -38,7 +38,7 @@
 <MudDialogProvider/>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6">
-    <MudPaper Elevation="1" Class="p-4 rounded-2xl" Style="box-shadow: none">
+    <MudPaper Elevation="1" Class="rounded-2xl" Style="box-shadow: none">
 
         <MudTable Items="@_items"
                   Hover="true"
@@ -79,19 +79,19 @@
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh>شماره</MudTh>
-                <MudTh>نام</MudTh>
-                <MudTh>کد</MudTh>
-                <MudTh>نام پروژه</MudTh>
-                <MudTh>عملیات</MudTh>
+                <MudTh Class="th-mud-table">شماره</MudTh>
+                <MudTh Class="th-mud-table">نام</MudTh>
+                <MudTh Class="th-mud-table">کد</MudTh>
+                <MudTh Class="th-mud-table">نام پروژه</MudTh>
+                <MudTh Class="th-mud-table">عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="کد پروژه">@context.Id</MudTd>
-                <MudTd DataLabel="شماره قرارداد">@context.Name</MudTd>
-                <MudTd DataLabel="شماره قرارداد">@context.Code</MudTd>
-                <MudTd DataLabel="نام پروژه">@context.Project.Name</MudTd>
-                <MudTd DataLabel="عملیات" Class="text-nowrap">
+                <MudTd Class="td-mud-table" DataLabel="کد پروژه">@context.Id</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Code</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="نام پروژه">@context.Project.Name</MudTd>
+                <MudTd Class="td-mud-table text-nowrap" DataLabel="عملیات" >
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
                                    OnClick="@(() => EditItem(context))"/>
@@ -108,7 +108,13 @@
             </NoRecordsContent>
 
             <PagerContent>
-                <MudTablePager/>
+                <div class="d-flex flex-column align-center pb-2">
+                    <MudPagination ShowFirstButton="false"
+                                   Selected="_filter.Page"
+                                   ShowLastButton="false"
+                                   Count="_filter.TotalPage"
+                                   SelectedChanged="OnPageChanged" Class="mt-4"/>
+                </div>
             </PagerContent>
         </MudTable>
     </MudPaper>
