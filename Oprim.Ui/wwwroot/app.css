@@ -13,3 +13,7 @@
     font-weight: 600 !important;
     text-align: center !important;
 }
+
+.slide {
+    cursor: pointer !important;
+}
