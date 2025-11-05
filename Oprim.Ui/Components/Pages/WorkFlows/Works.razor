@@ -46,7 +46,7 @@
         <MudTable Items="@_items"
                   Hover="true"
                   Dense="true"
-                  Filter="new Func<ProjectItemGroup,bool>(FilterFunc1)"
+                  Filter="new Func<Work,bool>(FilterFunc1)"
                   @bind-SelectedItem="selectedItem1"
                   Class="w-100"
                   Loading="@_loading">
