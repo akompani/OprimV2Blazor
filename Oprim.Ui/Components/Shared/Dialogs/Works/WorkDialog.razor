@@ -1,5 +1,227 @@
-<h3>WorkDialog</h3>
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
+@using Oprim.Application.Patterns.WorkFlow.WorkTemplates.Queries.GetWorkTemplates
+@using Oprim.Domain.Common.Utilities
+@using Oprim.Domain.Entities.PMO
+@using Oprim.Domain.Entities.Schedule
+@using Oprim.Domain.Entities.WorkFlow
+@using Oprim.Domain.Enums.WorkFlow
+@rendermode InteractiveServer
+
+<MudDialog Style="min-width: 500px; max-width: 800px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+
+            <MudGrid GutterSize="16px">
+                <!-- نام و کد -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام فعالیت</MudText>
+                    <MudTextField Placeholder="نام فعالیت" @bind-Value="_model.Name" Variant="Variant.Outlined"
+                                  Required="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد فعالیت</MudText>
+                    <MudTextField Placeholder="کد فعالیت" @bind-Value="_model.Code" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- تقویم و الگو -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تقویم پروژه</MudText>
+                    <MudSelect T="long" @bind-Value="_model.ProjectCalendarId" Variant="Variant.Outlined" Dense="true">
+                        @foreach (var c in _calendars)
+                        {
+                            <MudSelectItem Value="@c.Id">@c.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">الگوی کار</MudText>
+                    <MudSelect T="long" @bind-Value="_model.WorkTemplateId" Variant="Variant.Outlined" Dense="true">
+                        @foreach (var t in _templates)
+                        {
+                            <MudSelectItem Value="@t.Id">@t.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">پروژه</MudText>
+                    <MudSelect T="long" @bind-Value="_model.ProjectId" Variant="Variant.Outlined" Dense="true">
+                        @foreach (var t in _projects)
+                        {
+                            <MudSelectItem Value="@t.Id">@t.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <!-- وضعیت -->
+                <MudItem xs="12" sm="6">
+                    <MudSelect T="WorkSituations" @bind-Value="_model.Situation" Placeholder="وضعیت"
+                               Variant="Variant.Outlined">
+                        @foreach (var s in Enum.GetValues<WorkSituations>())
+                        {
+                            <MudSelectItem Value="@s">@s.ToDisplay()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- سند و گردش کار -->
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" Label="گردش‌کار با سند" @bind-Checked="_model.WorkFlowWithDocument"
+                               Color="Color.Primary"/>
+                </MudItem>
+
+                <!-- نوع سند و شناسه -->
+                <MudItem xs="12" sm="6">
+                    <MudNumericField T="long" Placeholder="شناسه سند" @bind-Value="_model.DocumentId"
+                                     Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudNumericField T="long" Placeholder="نوع سند" @bind-Value="_model.DocumentTypeId"
+                                     Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- برنامه زمانی -->
+                <MudItem xs="12" sm="6">
+                    <MudDatePicker Placeholder="تاریخ شروع برنامه‌ای" @bind-Date="_planStart"
+                                   Variant="Variant.Outlined"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudDatePicker Placeholder="تاریخ پایان برنامه‌ای" @bind-Date="_planFinish"
+                                   Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudNumericField T="int" Placeholder="مدت برنامه‌ای (ساعت)" @bind-Value="_model.PlanDurationHours"
+                                     Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- عملکرد واقعی -->
+                <MudItem xs="12" sm="6">
+                    <MudDatePicker Placeholder="تاریخ شروع واقعی" @bind-Date="_actualStart" Variant="Variant.Outlined"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudDatePicker Placeholder="تاریخ پایان واقعی" @bind-Date="_actualFinish"
+                                   Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudNumericField T="int" Placeholder="مدت واقعی (ساعت)" @bind-Value="_model.ActualDurationHours"
+                                     Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- درصد پیشرفت -->
+                <MudItem xs="12" sm="6">
+                    <MudNumericField T="decimal" Placeholder="درصد پیشرفت" @bind-Value="_model.Progress"
+                                     Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- اهمیت -->
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" Label="بحرانی" @bind-Checked="_model.Critical" Color="Color.Error"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudSwitch T="bool" Label="مهم" @bind-Checked="_model.Important" Color="Color.Warning"/>
+                </MudItem>
+
+                <!-- توضیحات -->
+                <MudItem xs="12">
+                    <MudTextField Placeholder="توضیحات" @bind-Value="_model.Notes" Variant="Variant.Outlined"
+                                  Lines="3"/>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
 
 @code {
-    
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public Work? Item { get; set; }
+    [Inject] private IMediator _mediator { get; set; } = default!;
+
+    private MudForm? _form;
+    private Work _model = new();
+    private List<WorkTemplate> _templates = [];
+    private List<ProjectCalendar> _calendars = [];
+    private List<Project> _projects = [];
+
+    private DateTime? _planStart;
+    private DateTime? _planFinish;
+    private DateTime? _actualStart;
+    private DateTime? _actualFinish;
+
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _model = new Work
+            {
+                PlanStart = DateTime.Now,
+                PlanFinish = DateTime.Now.AddDays(1)
+            };
+            _titlePage = "ثبت فعالیت جدید";
+        }
+        else
+        {
+            _model = new Work
+            {
+                Id = Item.Id,
+                Name = Item.Name,
+                Code = Item.Code,
+                ProjectCalendarId = Item.ProjectCalendarId,
+                WorkTemplateId = Item.WorkTemplateId,
+                WorkFlowWithDocument = Item.WorkFlowWithDocument,
+                DocumentId = Item.DocumentId,
+                DocumentTypeId = Item.DocumentTypeId,
+                PlanStart = _planStart ?? DateTime.Now,
+                PlanFinish = _planFinish ?? DateTime.Now,
+                PlanDurationHours = Item.PlanDurationHours,
+                ActualStart = _actualStart ?? DateTime.Now,
+                ActualFinish = _actualFinish ?? DateTime.Now,
+                ActualDurationHours = Item.ActualDurationHours,
+                Critical = Item.Critical,
+                Important = Item.Important,
+                Notes = Item.Notes,
+                Progress = Item.Progress,
+                Situation = Item.Situation,
+                CreateTime = DateTime.Now,
+                ProjectId = Item.ProjectId,
+                ScheduleWorkId = Item.ScheduleWorkId
+            };
+            _titlePage = "ویرایش فعالیت";
+        }
+
+        _templates = await _mediator.Send(new GetWorkTemplatesQuery());
+        _projects = await _mediator.Send(new GetProjectsQuery());
+        
+        // _calendars = await _mediator.Send(new GetProjectCalendarsQuery());
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated()
+    {
+    }
+
 }
+

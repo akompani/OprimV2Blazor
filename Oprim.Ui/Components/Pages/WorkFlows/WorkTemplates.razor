@@ -1,13 +1,10 @@
-@page "/Works"
+@page "/WorkTemplates"
 @using MediatR
 @using MudBlazor
 @using Oprim.Application.Dtos.PageableParams
 @using Oprim.Application.Interfaces
-@using Oprim.Application.Patterns.PMO.ProjectItemGroups.Queries.GetProjectItemGroups
-@using Oprim.Application.Patterns.WorkFlow.Works.Queries.GetWorks
-@using Oprim.Domain.Entities.PMO
+@using Oprim.Application.Patterns.WorkFlow.WorkTemplates.Queries.GetWorkTemplates
 @using Oprim.Domain.Entities.WorkFlow
-@using Oprim.Ui.Components.Shared.Dialogs.Projects
 @using Oprim.Ui.Components.Shared.Dialogs.Works
 
 @rendermode InteractiveServer
@@ -48,7 +45,7 @@
         <MudTable Items="@_items"
                   Hover="true"
                   Dense="true"
-                  Filter="new Func<Work,bool>(FilterFunc1)"
+                  Filter="new Func<WorkTemplate,bool>(FilterFunc1)"
                   @bind-SelectedItem="selectedItem1"
                   Class="w-100"
                   Loading="@_loading">
@@ -129,8 +126,8 @@
     [Inject] private IMediator Mediator { get; set; } = default!;
     [Inject] private IDialogService DialogService { get; set; } = default!;
     private string searchString1 = "";
-    private Work? selectedItem1;
-    private List<Work> _items = [];
+    private WorkTemplate? selectedItem1;
+    private List<WorkTemplate> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
 
     private async Task LoadData()
@@ -139,7 +136,7 @@
         {
             _loading = true;
             await Task.Delay(100);
-            _items = await Mediator.Send(new GetWorksQuery());
+            _items = await Mediator.Send(new GetWorkTemplatesQuery());
             Console.WriteLine(_items.Count);
         }
         finally
@@ -170,35 +167,35 @@
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };
-        var dialog = DialogService.Show<WorkDialog>("", parameters);
+        var dialog = DialogService.Show<WorkTemplateDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var newItem = (Work)result.Data!;
-            await _ofWork.GenericRepository<Work>().AddAsync(newItem, CancellationToken.None);
+            var newItem = (WorkTemplate)result.Data!;
+            await _ofWork.GenericRepository<WorkTemplate>().AddAsync(newItem, CancellationToken.None);
             _items.Add(newItem);
             await LoadData();
         }
     }
 
-    private async Task EditItem(Work item)
+    private async Task EditItem(WorkTemplate item)
     {
         var parameters = new DialogParameters { ["Item"] = item };
-        var dialog = DialogService.Show<WorkDialog>("", parameters);
+        var dialog = DialogService.Show<WorkTemplateDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var updated = (Work)result.Data!;
-            await _ofWork.GenericRepository<Work>().UpdateAsync(updated, CancellationToken.None);
+            var updated = (WorkTemplate)result.Data!;
+            await _ofWork.GenericRepository<WorkTemplate>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
             await LoadData();
         }
     }
 
-    private bool FilterFunc1(Work element) =>
+    private bool FilterFunc1(WorkTemplate element) =>
         string.IsNullOrWhiteSpace(searchString1) ||
         element.Name.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
 }

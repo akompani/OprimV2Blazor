@@ -57,11 +57,11 @@ namespace Oprim.Domain.Database
         #endregion
 
         #region WorkFlow
-        //
-        // public DbSet<WorkTemplate> WorkTemplates { get; set; }
-        // public DbSet<WorkTemplateArticle> WorkTemplateArticles { get; set; }
-        // public DbSet<Work> Works { get; set; }
-        // public DbSet<WorkArticle> WorkArticles { get; set; }
+
+         public DbSet<Work> Works { get; set; }
+         public DbSet<WorkTemplateArticle> WorkTemplateArticles { get; set; }
+         public DbSet<WorkTemplate> WorkTemplates { get; set; }
+         public DbSet<WorkArticle> WorkArticles { get; set; }
 
         #endregion
         

@@ -1,0 +1,99 @@
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
+@using Oprim.Domain.Entities.PMO
+@using Oprim.Domain.Entities.WorkFlow
+@rendermode InteractiveServer
+
+<MudDialog Style="min-width: 400px; max-width: 600px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            @if (_model.Id > 0)
+            {
+                <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">فرم ثبت پروژه</MudText>
+            }
+            else
+            {
+                <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">فرم ثبت پروژه</MudText>
+            }
+
+            <MudGrid GutterSize="16px">
+                <!-- ردیف اول -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام گروه</MudText>
+                    <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+                <!-- نوع طرح -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">گروه</MudText>
+                    <MudSelect T="long" @bind-Value="_model.ProjectId" Variant="Variant.Outlined">
+                        @foreach (var t in _projects)
+                        {
+                            <MudSelectItem T="long" Value="@t.Id">@t.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- مشاور -->
+
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public WorkTemplate? Item { get; set; }
+    [Inject] private IMediator _mediator { set; get; }
+    private MudForm? _form;
+    private WorkTemplate _model = new();
+    private List<Project> _projects = [];
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _model = new WorkTemplate();
+            _titlePage = "فرم ثبت  گروه پروژه";
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش گروه پروژه";
+            _model = new WorkTemplate
+            {
+                Id = Item.Id,
+                Name = Item.Name,
+                CreateTime = Item.CreateTime,
+                ProjectId = Item.ProjectId
+            };
+        }
+
+        _projects = await _mediator.Send(new GetProjectsQuery());
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+            _model = null;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated()
+    {
+    }
+}
