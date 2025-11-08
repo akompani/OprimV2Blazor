@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Oprim.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61e0ddc5b53d49662a4e37fb91ef71aa8757de81")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35886499da1a54454437850852ad7dd1355e4254")]
 [assembly: System.Reflection.AssemblyProductAttribute("Oprim.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Oprim.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

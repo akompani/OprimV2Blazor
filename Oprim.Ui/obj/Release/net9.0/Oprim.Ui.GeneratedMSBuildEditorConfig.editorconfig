@@ -39,6 +39,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Cost/ProjectCostBreakdowns.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3N0XFByb2plY3RDb3N0QnJlYWtkb3ducy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -51,6 +55,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Pmo/ProjectItemGroups.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQbW9cUHJvamVjdEl0ZW1Hcm91cHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Pmo/Projects.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQbW9cUHJvamVjdHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Qc/PunchItems.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xRY1xQdW5jaEl0ZW1zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -61,6 +73,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/ProjectCostBreakdowns/ProjectCostBreakdownDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xQcm9qZWN0Q29zdEJyZWFrZG93bnNcUHJvamVjdENvc3RCcmVha2Rvd25EaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/Projects/ProjectDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xQcm9qZWN0c1xQcm9qZWN0RGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/Projects/ProjectItemGroupDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xQcm9qZWN0c1xQcm9qZWN0SXRlbUdyb3VwRGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/PunchItems/PunchItemDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xQdW5jaEl0ZW1zXFB1bmNoSXRlbURpYWxvZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Navbar.razor]

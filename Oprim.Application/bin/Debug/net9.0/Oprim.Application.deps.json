@@ -13,6 +13,7 @@
           "MediatR": "13.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.9",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "9.0.9",
+          "Minio": "6.0.5",
           "Newtonsoft.Json": "13.0.4",
           "Oprim.Domain": "1.0.0",
           "Vit.Net.Http.FormFile": "6.0.0"
@@ -64,6 +65,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.11.4.0",
             "fileVersion": "1.1100.424.31005"
+          }
+        }
+      },
+      "CommunityToolkit.HighPerformance/8.4.0": {
+        "runtime": {
+          "lib/net8.0/CommunityToolkit.HighPerformance.dll": {
+            "assemblyVersion": "8.4.0.0",
+            "fileVersion": "8.4.0.1"
           }
         }
       },
@@ -870,6 +879,21 @@
           "System.Security.Principal.Windows": "5.0.0"
         }
       },
+      "Minio/6.0.5": {
+        "dependencies": {
+          "CommunityToolkit.HighPerformance": "8.4.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.9",
+          "Microsoft.Extensions.Logging": "9.0.9",
+          "System.IO.Hashing": "9.0.4",
+          "System.Reactive": "6.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/Minio.dll": {
+            "assemblyVersion": "6.0.5.0",
+            "fileVersion": "6.0.5.0"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.4": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -939,14 +963,7 @@
         }
       },
       "System.Diagnostics.DiagnosticSource/8.0.1": {},
-      "System.Formats.Asn1/9.0.9": {
-        "runtime": {
-          "lib/net9.0/System.Formats.Asn1.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.925.41916"
-          }
-        }
-      },
+      "System.Formats.Asn1/9.0.9": {},
       "System.IdentityModel.Tokens.Jwt/6.35.0": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "8.0.1",
@@ -956,6 +973,14 @@
           "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
             "assemblyVersion": "6.35.0.0",
             "fileVersion": "6.35.0.41201"
+          }
+        }
+      },
+      "System.IO.Hashing/9.0.4": {
+        "runtime": {
+          "lib/net9.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "9.0.0.4",
+            "fileVersion": "9.0.425.16305"
           }
         }
       },
@@ -974,6 +999,14 @@
         }
       },
       "System.Numerics.Vectors/4.5.0": {},
+      "System.Reactive/6.0.1": {
+        "runtime": {
+          "lib/net6.0/System.Reactive.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.1.7420"
+          }
+        }
+      },
       "System.Reflection.Emit/4.7.0": {},
       "System.Runtime.Caching/6.0.0": {
         "dependencies": {
@@ -1046,14 +1079,7 @@
         }
       },
       "System.Text.Encodings.Web/8.0.0": {},
-      "System.Text.Json/9.0.9": {
-        "runtime": {
-          "lib/net9.0/System.Text.Json.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.925.41916"
-          }
-        }
-      },
+      "System.Text.Json/9.0.9": {},
       "System.Threading.Tasks.Extensions/4.6.0": {},
       "System.Windows.Extensions/8.0.0": {
         "runtime": {
@@ -1141,6 +1167,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "CommunityToolkit.HighPerformance/8.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-flxspiBs0G/0GMp7IK2J2ijV9bTG6hEwFc/z6ekHqB6nwRJ4Ry2yLdx+TkbCUYFCl4XhABkAwomeKbT6zM2Zlg==",
+      "path": "communitytoolkit.highperformance/8.4.0",
+      "hashPath": "communitytoolkit.highperformance.8.4.0.nupkg.sha512"
     },
     "Kavenegar/1.2.5": {
       "type": "package",
@@ -1695,6 +1728,13 @@
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
     },
+    "Minio/6.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AK3JIDZnFZg2Hpkqo6vlzyiEC4OifG+jQbuqpAtXePnIo49G4pNn27THh3DI8s4o84b/MMBQF+n1DEwBNenxsg==",
+      "path": "minio/6.0.5",
+      "hashPath": "minio.6.0.5.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.4": {
       "type": "package",
       "serviceable": true,
@@ -1772,6 +1812,13 @@
       "path": "system.identitymodel.tokens.jwt/6.35.0",
       "hashPath": "system.identitymodel.tokens.jwt.6.35.0.nupkg.sha512"
     },
+    "System.IO.Hashing/9.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WogPvgAFqQORFD8Iyha6RZ+/1QB3dsWRWxbwi8/HHVgiGQ8z0oMWpwe8Kk3Ti+Roe+P6a3sBg+WwBfEsyziZKg==",
+      "path": "system.io.hashing/9.0.4",
+      "hashPath": "system.io.hashing.9.0.4.nupkg.sha512"
+    },
     "System.IO.Pipelines/5.0.1": {
       "type": "package",
       "serviceable": true,
@@ -1799,6 +1846,13 @@
       "sha512": "sha512-QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
       "path": "system.numerics.vectors/4.5.0",
       "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
+    },
+    "System.Reactive/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rHaWtKDwCi9qJ3ObKo8LHPMuuwv33YbmQi7TcUK1C264V3MFnOr5Im7QgCTdLniztP3GJyeiSg5x8NqYJFqRmg==",
+      "path": "system.reactive/6.0.1",
+      "hashPath": "system.reactive.6.0.1.nupkg.sha512"
     },
     "System.Reflection.Emit/4.7.0": {
       "type": "package",

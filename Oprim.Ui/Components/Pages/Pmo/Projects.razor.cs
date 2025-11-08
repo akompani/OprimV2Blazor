@@ -23,7 +23,6 @@ public partial class Projects
         try
         {
             _loading = true;
-            await Task.Delay(100);
             _items = await Mediator.Send(new GetProjectsQuery());
             Console.WriteLine(_items.Count);
         }

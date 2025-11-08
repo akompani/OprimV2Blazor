@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Oprim.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9670c8157327b17827961031e5fa283cee12f6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35886499da1a54454437850852ad7dd1355e4254")]
 [assembly: System.Reflection.AssemblyProductAttribute("Oprim.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Oprim.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

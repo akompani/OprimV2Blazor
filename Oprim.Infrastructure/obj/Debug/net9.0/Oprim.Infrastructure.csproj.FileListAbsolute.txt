@@ -48,8 +48,6 @@ C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\Oprim.Infrastructure.pdb
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\Oprim.Application.dll
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\Oprim.Domain.dll
-C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\GeneralServices.dll
-C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\MrMetrorGeneralServices.dll
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\Oprim.Application.pdb
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\bin\Debug\net9.0\Oprim.Domain.pdb
 C:\Users\User\RiderProjects\OprimV2Blazor\Oprim.Infrastructure\obj\Debug\net9.0\Oprim.Infrastructure.csproj.AssemblyReference.cache
