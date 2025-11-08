@@ -11,10 +11,10 @@ public class WorkTemplateArticle : BaseEntity
     public long WorkTemplateId { get; set; }
 
     [ForeignKey("RoleId")] public OrganizationRole? Role { get; set; }
-    public long RoleId { get; set; }
+    public long? RoleId { get; set; }
 
     [ForeignKey("StakeholderId")] public Stakeholder? Stakeholder { get; set; }
-    public long StakeholderId { get; set; }
+    public long? StakeholderId { get; set; }
 
     public byte Order { get; set; }
 

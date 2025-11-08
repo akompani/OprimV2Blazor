@@ -12,7 +12,6 @@ public class GetWorkArticlesQueryHandler(IUnitOfWork ofWork)
         CancellationToken cancellationToken)
     {
         var query = ofWork.GenericRepository<WorkArticle>().TableNoTracking
-            .Where(p => p.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         if (request.WorkId != 0) query = query.Where(p => p.WorkId == request.WorkId);

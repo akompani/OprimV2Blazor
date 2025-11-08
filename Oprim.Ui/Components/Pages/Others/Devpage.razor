@@ -1,28 +1,25 @@
 @page "/Devpage"
 @using Microsoft.Extensions.Localization
-@using Oprim.Ui.Resources
-@using Oprim.Ui.Resources.Models
 @rendermode InteractiveServer
-@inject IStringLocalizer<AppResource> L
-@inject NavigationManager Nav
-@inject  AppResource App
 
-<h3>@L["Hello"]</h3>
-<p>@L["Welcome"]</p>
 
-@App.Hello
-@App.Wel1come
-<button class="btn btn-primary" @onclick="() => ChangeLang(en)">English</button>
-<button class="btn btn-secondary" @onclick="() => ChangeLang(fa)">فارسی</button>
+@* <h3>@L["Hello"]</h3> *@
+@* <p>@L["Welcome"]</p> *@
+
+<button class="btn btn-primary" @onclick="() => SetLang(en)">English</button>
+<button class="btn btn-secondary" @onclick="() => SetLang(fa)">فارسی</button>
 
 @code {
     string fa = "fa";
     string en = "en";
 
-    private void ChangeLang(string culture)
+    private async Task SetLang(string culture)
     {
-        var uri = new Uri(Nav.Uri).GetLeftPart(UriPartial.Path);
-        Nav.NavigateTo($"{uri}?culture={culture}&ui-culture={culture}", forceLoad: true);
+        var uri = new Uri(NavigationManager.Uri)
+            .GetLeftPart(UriPartial.Path);
+        var query = $"?culture={culture}&ui-culture={culture}";
+        NavigationManager.NavigateTo(uri + query, forceLoad: true);
     }
 
+    [Inject] NavigationManager NavigationManager { get; set; } = default!;
 }

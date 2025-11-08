@@ -1,10 +1,10 @@
-@page "/WorkTemplates"
+@page "/WorkTemplateArticles"
 @using MediatR
-@using MudBlazor
 @using MudBlazor
 @using Oprim.Application.Dtos.PageableParams
 @using Oprim.Application.Interfaces
-@using Oprim.Application.Patterns.WorkFlow.WorkTemplates.Queries.GetWorkTemplates
+@using Oprim.Application.Patterns.WorkFlow.WorkArticles.Queries.GetWorkArticles
+@using Oprim.Application.Patterns.WorkFlow.WorkTemplateArticles.Queries.GetWorkTemplates
 @using Oprim.Domain.Entities.WorkFlow
 @using Oprim.Ui.Components.Shared.Dialogs.Works
 
@@ -46,7 +46,7 @@
         <MudTable Items="@_items"
                   Hover="true"
                   Dense="true"
-                  Filter="new Func<WorkTemplate,bool>(FilterFunc1)"
+                  Filter="new Func<WorkTemplateArticle,bool>(FilterFunc1)"
                   @bind-SelectedItem="selectedItem1"
                   Class="w-100"
                   Loading="@_loading">
@@ -83,15 +83,13 @@
 
             <HeaderContent>
                 <MudTh Class="th-mud-table">شماره</MudTh>
-                <MudTh Class="th-mud-table">نام گروه</MudTh>
-                <MudTh Class="th-mud-table">نام پروژه</MudTh>
+                <MudTh Class="th-mud-table">توضیحات</MudTh>
                 <MudTh Class="th-mud-table">عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
                 <MudTd Class="td-mud-table" DataLabel="کد پروژه">@context.Id</MudTd>
-                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Name</MudTd>
-                <MudTd Class="td-mud-table" DataLabel="نام پروژه">@context.Project.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Notes</MudTd>
                 <MudTd Class="td-mud-table text-nowrap" DataLabel="عملیات">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
@@ -127,8 +125,8 @@
     [Inject] private IMediator Mediator { get; set; } = default!;
     [Inject] private IDialogService DialogService { get; set; } = default!;
     private string searchString1 = "";
-    private WorkTemplate? selectedItem1;
-    private List<WorkTemplate> _items = [];
+    private WorkTemplateArticle? selectedItem1;
+    private List<WorkTemplateArticle> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
 
     private async Task LoadData()
@@ -137,7 +135,7 @@
         {
             _loading = true;
             await Task.Delay(100);
-            _items = await Mediator.Send(new GetWorkTemplatesQuery());
+            _items = await Mediator.Send(new GetWorkTemplateArticlesQuery());
             Console.WriteLine(_items.Count);
         }
         finally
@@ -168,35 +166,35 @@
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };
-        var dialog = DialogService.Show<WorkTemplateDialog>("", parameters);
+        var dialog = DialogService.Show<WorkTemplateArticleDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var newItem = (WorkTemplate)result.Data!;
-            await _ofWork.GenericRepository<WorkTemplate>().AddAsync(newItem, CancellationToken.None);
+            var newItem = (WorkTemplateArticle)result.Data!;
+            await _ofWork.GenericRepository<WorkTemplateArticle>().AddAsync(newItem, CancellationToken.None);
             _items.Add(newItem);
             await LoadData();
         }
     }
 
-    private async Task EditItem(WorkTemplate item)
+    private async Task EditItem(WorkTemplateArticle item)
     {
         var parameters = new DialogParameters { ["Item"] = item };
-        var dialog = DialogService.Show<WorkTemplateDialog>("", parameters);
+        var dialog = DialogService.Show<WorkTemplateArticleDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var updated = (WorkTemplate)result.Data!;
-            await _ofWork.GenericRepository<WorkTemplate>().UpdateAsync(updated, CancellationToken.None);
+            var updated = (WorkTemplateArticle)result.Data!;
+            await _ofWork.GenericRepository<WorkTemplateArticle>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
             await LoadData();
         }
     }
 
-    private bool FilterFunc1(WorkTemplate element) =>
+    private bool FilterFunc1(WorkTemplateArticle element) =>
         string.IsNullOrWhiteSpace(searchString1) ||
-        element.Name.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
+        element.Notes.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
 }

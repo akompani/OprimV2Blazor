@@ -12,8 +12,9 @@ public class GetWorkTemplateArticlesQueryHandler(IUnitOfWork ofWork)
         CancellationToken cancellationToken)
     {
         var query = ofWork.GenericRepository<WorkTemplateArticle>().TableNoTracking
-            .Where(p => p.WorkTemplateId == request.WorkTemplateId)
+            .Include(x=>x.WorkTemplate)
             .AsNoTracking();
+            // .Where(p => p.WorkTemplateId == request.WorkTemplateId)
 
         return await query.ToListAsync(cancellationToken: cancellationToken);
     }

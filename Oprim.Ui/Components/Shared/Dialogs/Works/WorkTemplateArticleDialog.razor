@@ -1,0 +1,166 @@
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.Organization.OrganizationRoles.Queries.GetOrganizationRoles
+@using Oprim.Application.Patterns.Organization.Stakeholders.Queries.GetStakeholders
+@using Oprim.Application.Patterns.WorkFlow.WorkTemplates.Queries.GetWorkTemplates
+@using Oprim.Domain.Entities.Organization
+@using Oprim.Domain.Enums.WorkFlow
+MudBlazor
+@using Oprim.Domain.Entities.WorkFlow
+<MudDialog Style="min-width: 500px; max-width: 750px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+
+            <MudGrid GutterSize="16px">
+
+                <!-- گروه کاری (WorkTemplate) -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">گروه کاری</MudText>
+                    <MudSelect T="long" @bind-Value="_model.WorkTemplateId" Variant="Variant.Outlined" Required="true">
+                        @foreach (var item in _workTemplates)
+                        {
+                            <MudSelectItem T="long" Value="@item.Id">@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- نقش (Role) -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نقش سازمانی</MudText>
+                    <MudSelect T="long?" @bind-Value="_model.RoleId" Variant="Variant.Outlined" >
+                        @foreach (var role in _roles)
+                        {
+                            <MudSelectItem T="long" Value="@role.Id">@role.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- ذینفع (Stakeholder) -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ذینفع</MudText>
+                    <MudSelect T="long?" @bind-Value="_model.StakeholderId" Variant="Variant.Outlined" >
+                        @foreach (var s in _stakeholders)
+                        {
+                            <MudSelectItem T="long" Value="@s.Id">@s.FullName</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- ترتیب -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ترتیب</MudText>
+                    <MudNumericField T="byte" @bind-Value="_model.Order" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- زمان ثابت -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">زمان ثابت</MudText>
+                    <MudNumericField T="int" @bind-Value="_model.FixTime" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- انطباق با شاخص زمان پایه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">انطباق با شاخص زمان پایه</MudText>
+                    <MudNumericField T="int" @bind-Value="_model.FitOnBaseTimeDurationIndex" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- وزن -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">وزن</MudText>
+                    <MudNumericField T="decimal" @bind-Value="_model.Weight" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- نوع اقدام مقاله -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نوع اقدام مقاله</MudText>
+                    <MudSelect T="ArticleActionTypes" @bind-Value="_model.ArticleAction" Variant="Variant.Outlined">
+                        @foreach (var type in Enum.GetValues<ArticleActionTypes>())
+                        {
+                            <MudSelectItem T="ArticleActionTypes" Value="@type">@type</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- ارسال اعلان در ایجاد -->
+                <MudItem xs="12">
+                    <MudCheckBox T="bool" @bind-Checked="_model.SendNotificationOnCreate" Label="ارسال اعلان هنگام ایجاد" />
+                </MudItem>
+
+                <!-- یادداشت -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">یادداشت</MudText>
+                    <MudTextField @bind-Value="_model.Notes" Variant="Variant.Outlined" Lines="3" />
+                </MudItem>
+
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public WorkTemplateArticle? Item { get; set; }
+    [Inject] private IMediator _mediator { set; get; }
+
+    private MudForm? _form;
+    private WorkTemplateArticle _model = new();
+    private List<WorkTemplate> _workTemplates = [];
+    private List<OrganizationRole> _roles = [];
+    private List<Stakeholder> _stakeholders = [];
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _workTemplates = await _mediator.Send(new GetWorkTemplatesQuery());
+        _roles = await _mediator.Send(new GetOrganizationRolesQuery());
+        _stakeholders = await _mediator.Send(new GetStakeholdersQuery());
+
+        if (Item is null)
+        {
+            _model = new WorkTemplateArticle();
+            _titlePage = "فرم ثبت مقاله گروه کاری";
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش مقاله گروه کاری";
+            _model = new WorkTemplateArticle
+            {
+                Id = Item.Id,
+                WorkTemplateId = Item.WorkTemplateId,
+                RoleId = Item.RoleId,
+                StakeholderId = Item.StakeholderId,
+                Order = Item.Order,
+                FixTime = Item.FixTime,
+                FitOnBaseTimeDurationIndex = Item.FitOnBaseTimeDurationIndex,
+                Weight = Item.Weight,
+                ArticleAction = Item.ArticleAction,
+                SendNotificationOnCreate = Item.SendNotificationOnCreate,
+                Notes = Item.Notes
+            };
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+            _model = null;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+    private void OnValidated() { }
+}

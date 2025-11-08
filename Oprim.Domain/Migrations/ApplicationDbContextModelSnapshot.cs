@@ -958,7 +958,7 @@ namespace Oprim.Domain.Migrations
                     b.Property<double>("BaseTimeDurationIndex")
                         .HasColumnType("float");
 
-                    b.Property<long>("CalendarId")
+                    b.Property<long?>("CalendarId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ColorCode")
@@ -1040,13 +1040,13 @@ namespace Oprim.Domain.Migrations
                     b.Property<byte>("Order")
                         .HasColumnType("tinyint");
 
-                    b.Property<long>("RoleId")
+                    b.Property<long?>("RoleId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("SendNotificationOnCreate")
                         .HasColumnType("bit");
 
-                    b.Property<long>("StakeholderId")
+                    b.Property<long?>("StakeholderId")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Weight")
@@ -1318,9 +1318,7 @@ namespace Oprim.Domain.Migrations
                 {
                     b.HasOne("Oprim.Domain.Entities.Schedule.ProjectCalendar", "Calendar")
                         .WithMany()
-                        .HasForeignKey("CalendarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CalendarId");
 
                     b.HasOne("Oprim.Domain.Entities.PMO.Project", "Project")
                         .WithMany()
@@ -1337,15 +1335,11 @@ namespace Oprim.Domain.Migrations
                 {
                     b.HasOne("Oprim.Domain.Entities.Organization.OrganizationRole", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("Oprim.Domain.Entities.Organization.Stakeholder", "Stakeholder")
                         .WithMany()
-                        .HasForeignKey("StakeholderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StakeholderId");
 
                     b.HasOne("Oprim.Domain.Entities.WorkFlow.WorkTemplate", "WorkTemplate")
                         .WithMany()

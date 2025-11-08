@@ -3,29 +3,26 @@
 @using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
 @using Oprim.Domain.Entities.PMO
 @using Oprim.Domain.Entities.WorkFlow
+@using Oprim.Domain.Enums.WorkFlow
 @rendermode InteractiveServer
 
-<MudDialog Style="min-width: 400px; max-width: 600px; padding: 16px; border-radius: 8px;">
+
+<MudDialog Style="min-width: 500px; max-width: 700px; padding: 16px; border-radius: 8px;">
     <DialogContent>
         <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
-            @if (_model.Id > 0)
-            {
-                <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">فرم ثبت پروژه</MudText>
-            }
-            else
-            {
-                <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">فرم ثبت پروژه</MudText>
-            }
+
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
 
             <MudGrid GutterSize="16px">
-                <!-- ردیف اول -->
-                <MudItem xs="12" sm="12">
+                <!-- نام گروه -->
+                <MudItem xs="12">
                     <MudText Typo="Typo.subtitle1" Class="mb-1">نام گروه</MudText>
                     <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true"/>
                 </MudItem>
-                <!-- نوع طرح -->
-                <MudItem xs="12" sm="12">
-                    <MudText Typo="Typo.subtitle1" Class="mb-1">گروه</MudText>
+
+                <!-- پروژه -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">پروژه</MudText>
                     <MudSelect T="long" @bind-Value="_model.ProjectId" Variant="Variant.Outlined">
                         @foreach (var t in _projects)
                         {
@@ -34,7 +31,74 @@
                     </MudSelect>
                 </MudItem>
 
-                <!-- مشاور -->
+                <!-- تقویم -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تقویم</MudText>
+                    <MudDatePicker @bind-Value="_model.CalendarId" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- پیش‌کد -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">پیش‌کد</MudText>
+                    <MudTextField @bind-Value="_model.PrefixCode" Variant="Variant.Outlined" MaxLength="3"/>
+                </MudItem>
+
+                <!-- شاخص زمان پایه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">شاخص زمان پایه</MudText>
+                    <MudNumericField @bind-Value="_model.BaseTimeDurationIndex" Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- رنگ -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد رنگ</MudText>
+                    <MudTextField @bind-Value="_model.ColorCode" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- رنگ متن -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد رنگ متن</MudText>
+                    <MudTextField @bind-Value="_model.TextColorCode" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- جریمه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">میزان جریمه</MudText>
+                    <MudNumericField @bind-Value="_model.Penalty" Variant="Variant.Outlined" HideSpinButtons="true"/>
+                </MudItem>
+
+                <!-- نوع اعمال جریمه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نوع اعمال جریمه</MudText>
+                    <MudSelect T="PenaltyApplyTypes" @bind-Value="_model.PenaltyApplyType" Variant="Variant.Outlined">
+                        @foreach (var type in Enum.GetValues<PenaltyApplyTypes>())
+                        {
+                            <MudSelectItem T="PenaltyApplyTypes" Value="@type">@type</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- امتیاز -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">امتیاز</MudText>
+                    <MudNumericField @bind-Value="_model.Score" HideSpinButtons="true" Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <!-- نوع اعمال امتیاز -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نوع اعمال امتیاز</MudText>
+                    <MudSelect T="ScoreApplyTypes" @bind-Value="_model.ScoreApplyType" Variant="Variant.Outlined">
+                        @foreach (var type in Enum.GetValues<ScoreApplyTypes>())
+                        {
+                            <MudSelectItem T="ScoreApplyTypes" Value="@type">@type</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- بدون مقاله -->
+                <MudItem xs="12">
+                    <MudCheckBox T="bool" @bind-Checked="_model.NoArticle" Label="بدون مقاله"/>
+                </MudItem>
 
             </MudGrid>
         </MudForm>
@@ -48,8 +112,7 @@
     </DialogActions>
 </MudDialog>
 
-@code
-{
+@code {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
     [Parameter] public WorkTemplate? Item { get; set; }
     [Inject] private IMediator _mediator { set; get; }
@@ -63,7 +126,7 @@
         if (Item is null)
         {
             _model = new WorkTemplate();
-            _titlePage = "فرم ثبت  گروه پروژه";
+            _titlePage = "فرم ثبت گروه پروژه";
         }
         else
         {
@@ -73,7 +136,17 @@
                 Id = Item.Id,
                 Name = Item.Name,
                 CreateTime = Item.CreateTime,
-                ProjectId = Item.ProjectId
+                ProjectId = Item.ProjectId,
+                CalendarId = Item.CalendarId,
+                PrefixCode = Item.PrefixCode,
+                BaseTimeDurationIndex = Item.BaseTimeDurationIndex,
+                ColorCode = Item.ColorCode,
+                TextColorCode = Item.TextColorCode,
+                Penalty = Item.Penalty,
+                PenaltyApplyType = Item.PenaltyApplyType,
+                Score = Item.Score,
+                ScoreApplyType = Item.ScoreApplyType,
+                NoArticle = Item.NoArticle
             };
         }
 
@@ -96,4 +169,5 @@
     private void OnValidated()
     {
     }
+
 }

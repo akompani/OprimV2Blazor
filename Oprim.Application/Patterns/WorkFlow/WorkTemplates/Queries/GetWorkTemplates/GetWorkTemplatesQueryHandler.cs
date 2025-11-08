@@ -11,9 +11,9 @@ public class GetWorkTemplatesQueryHandler(IUnitOfWork ofWork)
     public async Task<List<WorkTemplate>> Handle(GetWorkTemplatesQuery request,
         CancellationToken cancellationToken)
     {
-        var query = ofWork.GenericRepository<WorkTemplate>().TableNoTracking
-            .Where(p => p.ProjectId == request.ProjectId)
+        var query = ofWork.GenericRepository<WorkTemplate>().TableNoTracking.Include(x=>x.Project)
             .AsNoTracking();
+            // .Where(p => p.ProjectId == request.ProjectId)
 
         return await query.ToListAsync(cancellationToken: cancellationToken);
     }

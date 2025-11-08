@@ -9,7 +9,6 @@ using Oprim.Application;
 using Oprim.Infrastructure;
 using Oprim.Ui;
 using Oprim.Ui.Components;
-using Oprim.Ui.Resources.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,13 +22,6 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddUiServices();
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-// 🔹 تنظیم Culture پیش‌فرض
-builder.Services.AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-builder.Services.AddScoped(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-
-// ثبت AppResource به عنوان Scoped (یا Singleton)
-builder.Services.AddScoped<AppResource>();
 // ✅ Identity و Authentication
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
     .AddIdentityCookies();
@@ -45,25 +37,6 @@ builder.Services.AddMediatR(cfg =>
 // 🔹 Build App
 // -------------------------
 var app = builder.Build();
-
-var supportedCultures = new[] { "en", "fa" };
-var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("en")
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
-
-app.UseRequestLocalization(localizationOptions);
-
-app.UseRequestLocalization(new RequestLocalizationOptions()
-    .AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async context =>
-    {
-        var segments = context.Request.Path.Value.Split('/');
-        var culture = segments.Length > 1 ? segments[1] : "en";
-        return await Task.FromResult(new ProviderCultureResult(culture));
-    }))
-    .AddSupportedCultures("en", "fa")
-    .AddSupportedUICultures("en", "fa"));
-
 // -------------------------
 // 🔹 Middleware Pipeline
 // -------------------------

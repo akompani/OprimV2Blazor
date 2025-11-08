@@ -12,7 +12,6 @@ public class GetWorksQueryHandler(IUnitOfWork ofWork)
         CancellationToken cancellationToken)
     {
         var query = ofWork.GenericRepository<Work>().TableNoTracking
-            .Where(p => p.ProjectId == request.ProjectId)
             .AsNoTracking();
 
         return await query.ToListAsync(cancellationToken: cancellationToken);

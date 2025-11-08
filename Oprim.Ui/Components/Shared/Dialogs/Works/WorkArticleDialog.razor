@@ -1,0 +1,234 @@
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.Organization.Stakeholders.Queries.GetStakeholders
+@using Oprim.Application.Patterns.WorkFlow.WorkArticles.Queries.GetWorkArticles
+@using Oprim.Application.Patterns.WorkFlow.Works.Queries.GetWorks
+@using Oprim.Application.Patterns.WorkFlow.WorkTemplateArticles.Queries.GetWorkTemplates
+@using Oprim.Domain.Entities.Organization
+@using Oprim.Domain.Enums.WorkFlow
+MudBlazor
+@using Oprim.Domain.Entities.WorkFlow
+@using Oprim.Domain.Enums.Common
+@rendermode InteractiveServer
+
+<MudDialog Style="min-width: 500px; max-width: 800px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+
+            <MudGrid GutterSize="16px">
+                <!-- ردیف -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ردیف</MudText>
+                    <MudNumericField @bind-Value="_model.Row" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- مقاله قبلی -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">مقاله قبلی</MudText>
+                    <MudNumericField @bind-Value="_model.PrevArticleId" Variant="Variant.Outlined" HideSpinButtons="true" />
+
+                </MudItem>
+
+                <!-- پروژه -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کار</MudText>
+                    <MudSelect T="long?" @bind-Value="_model.WorkId" Variant="Variant.Outlined">
+                        <MudSelectItem T="long?" Value="null">انتخاب نشده</MudSelectItem>
+                        @foreach (var w in _works)
+                        {
+                            <MudSelectItem T="long?" Value="@w.Id">@w.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- تمپلیت مقاله -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تمپلیت مقاله</MudText>
+                    <MudSelect T="long?" @bind-Value="_model.WorkTemplateArticleId" Variant="Variant.Outlined">
+                        <MudSelectItem T="long?" Value="null">انتخاب نشده</MudSelectItem>
+                        @foreach (var t in _templates)
+                        {
+                            <MudSelectItem T="long?" Value="@t.Id">@t.Notes</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- ذینفع -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ذینفع</MudText>
+                    <MudSelect T="long?" @bind-Value="_model.StakeholderId" Variant="Variant.Outlined">
+                        <MudSelectItem T="long?" Value="null">انتخاب نشده</MudSelectItem>
+                        @foreach (var s in _stakeholders)
+                        {
+                            <MudSelectItem T="long?" Value="@s.Id">@s.FullName</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+
+                <!-- برنامه شروع و پایان -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ شروع برنامه</MudText>
+                    <MudDatePicker @bind-Value="_model.PlanStart" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ پایان برنامه</MudText>
+                    <MudDatePicker @bind-Value="_model.PlanFinish" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- مدت زمان برنامه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">مدت زمان برنامه (ساعت)</MudText>
+                    <MudNumericField @bind-Value="_model.PlanDurationHours" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- وضعیت -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">وضعیت</MudText>
+                    <MudSelect T="WorkSituations" @bind-Value="_model.Situation" Variant="Variant.Outlined">
+                        @foreach (var s in Enum.GetValues<WorkSituations>())
+                        {
+                            <MudSelectItem T="WorkSituations" Value="@s">@s</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- پایان واقعی -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ پایان واقعی</MudText>
+                    <MudDatePicker @bind-Value="_model.ActualFinish" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- مدت واقعی -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">مدت واقعی (ساعت)</MudText>
+                    <MudNumericField @bind-Value="_model.ActualDurationHours" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- تأخیر -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تأخیر (ساعت)</MudText>
+                    <MudNumericField @bind-Value="_model.DelayHours" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- امتیاز و جریمه -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">امتیاز</MudText>
+                    <MudNumericField @bind-Value="_model.Score" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">جریمه</MudText>
+                    <MudNumericField @bind-Value="_model.Penalty" Variant="Variant.Outlined" HideSpinButtons="true" />
+                </MudItem>
+
+                <!-- تاریخ اعمال -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تاریخ اعمال امتیاز/جریمه</MudText>
+                    <MudDatePicker @bind-Value="_model.PenaltyOrScoreApplyTime" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- کیفیت -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کیفیت</MudText>
+                    <MudSelect T="SevenPointLikertScales" @bind-Value="_model.QualityValue" Variant="Variant.Outlined">
+                        @foreach (var q in Enum.GetValues<SevenPointLikertScales>())
+                        {
+                            <MudSelectItem T="SevenPointLikertScales" Value="@q">@q</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- یادداشت -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">یادداشت</MudText>
+                    <MudTextField @bind-Value="_model.Notes" Variant="Variant.Outlined" Lines="3" />
+                </MudItem>
+
+                <!-- نهایی -->
+                <MudItem xs="12">
+                    <MudCheckBox T="bool" @bind-Checked="_model.IsFinalArticle" Label="مقاله نهایی است" />
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public WorkArticle? Item { get; set; }
+
+    [Inject] private IMediator _mediator { get; set; } = default!;
+
+    private MudForm? _form;
+    private WorkArticle _model = new();
+    private List<Work> _works = [];
+    private List<WorkTemplateArticle> _templates = [];
+    private List<Stakeholder> _stakeholders = [];
+    private List<WorkArticle> _prevArticles = [];
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _titlePage = "فرم ثبت مقاله کار";
+            _model = new WorkArticle();
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش مقاله کار";
+            _model = new WorkArticle
+            {
+                Id = Item.Id,
+                PrevArticleId = Item.PrevArticleId,
+                Row = Item.Row,
+                WorkId = Item.WorkId,
+                WorkTemplateArticleId = Item.WorkTemplateArticleId,
+                StakeholderId = Item.StakeholderId,
+                PlanStart = Item.PlanStart,
+                PlanFinish = Item.PlanFinish,
+                PlanDurationHours = Item.PlanDurationHours,
+                ActualFinish = Item.ActualFinish,
+                ActualDurationHours = Item.ActualDurationHours,
+                DelayHours = Item.DelayHours,
+                Score = Item.Score,
+                Penalty = Item.Penalty,
+                PenaltyOrScoreApplyTime = Item.PenaltyOrScoreApplyTime,
+                Notes = Item.Notes,
+                QualityValue = Item.QualityValue,
+                Situation = Item.Situation,
+                IsFinalArticle = Item.IsFinalArticle
+            };
+        }
+
+        _works = await _mediator.Send(new GetWorksQuery());
+        _templates = await _mediator.Send(new GetWorkTemplateArticlesQuery());
+        _stakeholders = await _mediator.Send(new GetStakeholdersQuery());
+        _prevArticles = await _mediator.Send(new GetWorkArticlesQuery());
+
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated() { }
+}

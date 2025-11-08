@@ -8,8 +8,8 @@ namespace Oprim.Domain.Entities.WorkFlow;
 
 public class WorkTemplate : BaseProjectEntity
 {
-    [ForeignKey("CalendarId")] public ProjectCalendar Calendar { get; set; }
-    public long CalendarId { get; set; }
+    [ForeignKey("CalendarId")] public ProjectCalendar? Calendar { get; set; }
+    public long? CalendarId { get; set; }
 
     [MaxLength(3)]
     public string PrefixCode { get; set; }

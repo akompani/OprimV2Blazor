@@ -6703,31 +6703,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Kamali\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Kamali\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
       "projectName": "Oprim.Domain",
-      "projectPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Kamali\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\Oprim.Domain.csproj",
+      "packagesPath": "C:\\Users\\Kamali\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kamali\\RiderProjects\\OprimV2Blazor\\Oprim.Domain\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Kamali\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
