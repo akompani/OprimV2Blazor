@@ -1,0 +1,162 @@
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.Organization.StakeholderGroups.Queries.GetStakeholderGroups
+@using Oprim.Domain.Entities.Organization
+@rendermode InteractiveServer
+
+<MudDialog Style="min-width: 500px; max-width: 800px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+
+            <MudGrid GutterSize="16px">
+                <!-- کد -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد</MudText>
+                    <MudTextField @bind-Value="_model.Code" Variant="Variant.Outlined" Required="true" />
+                </MudItem>
+
+                <!-- گروه ذینفع -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">گروه ذینفع</MudText>
+                    <MudSelect T="long" @bind-Value="_model.StakeholderGroupId" Variant="Variant.Outlined">
+                        @foreach (var g in _groups)
+                        {
+                            <MudSelectItem T="long" Value="@g.Id">@g.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- شخصیت حقوقی -->
+                <MudItem xs="12" sm="6">
+                    <MudCheckBox @bind-Checked="_model.IsLegalPersonality" Label="شخصیت حقوقی" />
+                </MudItem>
+
+                <!-- نام کامل -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام کامل</MudText>
+                    <MudTextField @bind-Value="_model.FullName" Variant="Variant.Outlined" Required="true" />
+                </MudItem>
+
+                <!-- کد شناسایی -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد شناسایی</MudText>
+                    <MudTextField @bind-Value="_model.IdentifyCode" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- ایمیل -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">ایمیل</MudText>
+                    <MudTextField @bind-Value="_model.Email" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- موبایل -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">شماره موبایل</MudText>
+                    <MudTextField @bind-Value="_model.MobileNumber" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- تلفن ثابت -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">تلفن ثابت</MudText>
+                    <MudTextField @bind-Value="_model.PhoneNumber" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- فکس -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">شماره فکس</MudText>
+                    <MudTextField @bind-Value="_model.FaxNumber" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- کشور -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کشور</MudText>
+                    <MudTextField @bind-Value="_model.Country" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- شهر -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">شهر</MudText>
+                    <MudTextField @bind-Value="_model.City" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- آدرس -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">آدرس</MudText>
+                    <MudTextField @bind-Value="_model.Address" Variant="Variant.Outlined" Lines="2" />
+                </MudItem>
+
+                <!-- کد پستی -->
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">کد پستی</MudText>
+                    <MudTextField @bind-Value="_model.ZipCode" Variant="Variant.Outlined" />
+                </MudItem>
+
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public Stakeholder? Item { get; set; }
+    [Inject] private IMediator _mediator { get; set; }
+
+    private MudForm? _form;
+    private Stakeholder _model = new();
+    private List<StakeholderGroup> _groups = [];
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _model = new Stakeholder();
+            _titlePage = "فرم ثبت ذینفع";
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش ذینفع";
+            _model = new Stakeholder
+            {
+                Id = Item.Id,
+                Code = Item.Code,
+                StakeholderGroupId = Item.StakeholderGroupId,
+                IsLegalPersonality = Item.IsLegalPersonality,
+                FullName = Item.FullName,
+                IdentifyCode = Item.IdentifyCode,
+                Email = Item.Email,
+                MobileNumber = Item.MobileNumber,
+                PhoneNumber = Item.PhoneNumber,
+                FaxNumber = Item.FaxNumber,
+                Country = Item.Country,
+                City = Item.City,
+                Address = Item.Address,
+                ZipCode = Item.ZipCode
+            };
+        }
+
+        _groups = await _mediator.Send(new GetStakeholderGroupsQuery());
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+            _model = null;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+    private void OnValidated() { }
+}

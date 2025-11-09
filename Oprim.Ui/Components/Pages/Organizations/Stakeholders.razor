@@ -1,9 +1,10 @@
-@page "/StakeholderGroups"
+@page "/Stakeholders"
 @using MediatR
 @using MudBlazor
 @using Oprim.Application.Dtos.PageableParams
 @using Oprim.Application.Interfaces
 @using Oprim.Application.Patterns.Organization.StakeholderGroups.Queries.GetStakeholderGroups
+@using Oprim.Application.Patterns.Organization.Stakeholders.Queries.GetStakeholders
 @using Oprim.Domain.Entities.Organization
 @using Oprim.Ui.Components.Shared.Dialogs.Organizations
 
@@ -44,7 +45,7 @@
         <MudTable Items="@_items"
                   Hover="true"
                   Dense="true"
-                  Filter="new Func<StakeholderGroup,bool>(FilterFunc1)"
+                  Filter="new Func<Stakeholder,bool>(FilterFunc1)"
                   @bind-SelectedItem="selectedItem1"
                   Class="w-100"
                   Loading="@_loading">
@@ -82,16 +83,20 @@
             <HeaderContent>
                 <MudTh Class="th-mud-table">شماره</MudTh>
                 <MudTh Class="th-mud-table">نام گروه</MudTh>
-                <MudTh Class="th-mud-table">نام پروژه</MudTh>
-                <MudTh Class="th-mud-table">TopLevelRoleId</MudTh>
-                <MudTh Class="th-mud-table">ComponentType</MudTh>
-                <MudTh Class="th-mud-table">OrganizationRanking</MudTh>
+                <MudTh Class="th-mud-table">Code</MudTh>
+                <MudTh Class="th-mud-table">IsLegalPersonality</MudTh>
+                <MudTh Class="th-mud-table">FullName</MudTh>
+                <MudTh Class="th-mud-table">City</MudTh>
                 <MudTh Class="th-mud-table">عملیات</MudTh>
             </HeaderContent>
 
             <RowTemplate>
                 <MudTd Class="td-mud-table" DataLabel="کد پروژه">@context.Id</MudTd>
-                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.StakeholderGroup.Name</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.Code</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.IsLegalPersonality</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.FullName</MudTd>
+                <MudTd Class="td-mud-table" DataLabel="شماره قرارداد">@context.City</MudTd>
                 <MudTd Class="td-mud-table text-nowrap" DataLabel="عملیات">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Info"
@@ -127,8 +132,8 @@
     [Inject] private IMediator Mediator { get; set; } = default!;
     [Inject] private IDialogService DialogService { get; set; } = default!;
     private string searchString1 = "";
-    private StakeholderGroup? selectedItem1;
-    private List<StakeholderGroup> _items = [];
+    private Stakeholder? selectedItem1;
+    private List<Stakeholder> _items = [];
     private bool _loading = true; // ← فلگ لودینگ
 
     private async Task LoadData()
@@ -137,7 +142,7 @@
         {
             _loading = true;
             await Task.Delay(100);
-            _items = await Mediator.Send(new GetStakeholderGroupsQuery());
+            _items = await Mediator.Send(new GetStakeholdersQuery());
             Console.WriteLine(_items.Count);
         }
         finally
@@ -170,35 +175,35 @@
     private async Task CreateItem()
     {
         var parameters = new DialogParameters { ["Item"] = null };
-        var dialog = DialogService.Show<StakeholderGroupDialog>("", parameters);
+        var dialog = DialogService.Show<StakeholderDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var newItem = (StakeholderGroup)result.Data!;
-            await _ofWork.GenericRepository<StakeholderGroup>().AddAsync(newItem, CancellationToken.None);
+            var newItem = (Stakeholder)result.Data!;
+            await _ofWork.GenericRepository<Stakeholder>().AddAsync(newItem, CancellationToken.None);
             _items.Add(newItem);
             await LoadData();
         }
     }
 
-    private async Task EditItem(StakeholderGroup item)
+    private async Task EditItem(Stakeholder item)
     {
         var parameters = new DialogParameters { ["Item"] = item };
-        var dialog = DialogService.Show<StakeholderGroupDialog>("", parameters);
+        var dialog = DialogService.Show<StakeholderDialog>("", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            var updated = (StakeholderGroup)result.Data!;
-            await _ofWork.GenericRepository<StakeholderGroup>().UpdateAsync(updated, CancellationToken.None);
+            var updated = (Stakeholder)result.Data!;
+            await _ofWork.GenericRepository<Stakeholder>().UpdateAsync(updated, CancellationToken.None);
             var index = _items.FindIndex(x => x.Id == updated.Id);
             if (index >= 0) _items[index] = updated;
             await LoadData();
         }
     }
 
-    private bool FilterFunc1(StakeholderGroup element) =>
+    private bool FilterFunc1(Stakeholder element) =>
         string.IsNullOrWhiteSpace(searchString1) ||
-        element.Name.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
+        element.FullName.Contains(searchString1, StringComparison.OrdinalIgnoreCase);
 }
