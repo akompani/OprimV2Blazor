@@ -1,0 +1,127 @@
+@using MediatR
+@using MudBlazor
+@using Oprim.Application.Patterns.PMO.Projects.Queries.GetProjects
+@using Oprim.Domain.Entities.Organization
+@using Oprim.Domain.Entities.PMO
+@using Oprim.Domain.Enums.Project
+
+@rendermode InteractiveServer
+<MudDialog Style="min-width: 400px; max-width: 600px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+
+            <MudGrid GutterSize="16px">
+                <!-- نام گروه -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام گروه</MudText>
+                    <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true" />
+                </MudItem>
+
+                <!-- گروه -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">گروه پروژه</MudText>
+                    <MudSelect T="long" @bind-Value="_model.ProjectId" Variant="Variant.Outlined">
+                        @foreach (var t in _projects)
+                        {
+                            <MudSelectItem T="long" Value="@t.Id">@t.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- سطح بالا -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">شناسه نقش سطح بالا</MudText>
+                    <MudNumericField @bind-Value="_model.TopLevelRoleId" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- نوع مؤلفه -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نوع مؤلفه</MudText>
+                    <MudSelect T="ProjectComponentTypes" @bind-Value="_model.ComponentType" Variant="Variant.Outlined">
+                        @foreach (var type in Enum.GetValues<ProjectComponentTypes>())
+                        {
+                            <MudSelectItem Value="@type">@type.ToString()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- شخص یکتا -->
+                <MudItem xs="12" sm="12">
+                    <MudCheckBox @bind-Checked="_model.UniquePerson" Label="شخص یکتا" />
+                </MudItem>
+
+                <!-- رتبه سازمانی -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">رتبه سازمانی</MudText>
+                    <MudNumericField T="byte" @bind-Value="_model.OrganizationRanking" Variant="Variant.Outlined" />
+                </MudItem>
+
+                <!-- نقش بیرونی -->
+                <MudItem xs="12" sm="12">
+                    <MudCheckBox @bind-Checked="_model.ExternalRole" Label="نقش بیرونی" />
+                </MudItem>
+
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public OrganizationRole? Item { get; set; }
+    [Inject] private IMediator _mediator { set; get; }
+
+    private MudForm? _form;
+    private OrganizationRole _model = new();
+    private List<Project> _projects = [];
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _model = new OrganizationRole();
+            _titlePage = "فرم ثبت گروه پروژه";
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش گروه پروژه";
+            _model = new OrganizationRole
+            {
+                Id = Item.Id,
+                Name = Item.Name,
+                CreateTime = Item.CreateTime,
+                ProjectId = Item.ProjectId,
+                TopLevelRoleId = Item.TopLevelRoleId,
+                ComponentType = Item.ComponentType,
+                UniquePerson = Item.UniquePerson,
+                OrganizationRanking = Item.OrganizationRanking,
+                ExternalRole = Item.ExternalRole
+            };
+        }
+
+        _projects = await _mediator.Send(new GetProjectsQuery());
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+            _model = null;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+    private void OnValidated() { }
+}

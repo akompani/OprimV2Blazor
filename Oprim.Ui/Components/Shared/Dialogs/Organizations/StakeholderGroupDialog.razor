@@ -1,0 +1,78 @@
+@using MudBlazor
+@using Oprim.Domain.Entities.Organization
+@using Oprim.Domain.Enums.Project
+
+@rendermode InteractiveServer
+<MudDialog Style="min-width: 400px; max-width: 600px; padding: 16px; border-radius: 8px;">
+    <DialogContent>
+        <MudForm @ref="_form" Validated="OnValidated" Class="pa-4">
+            <MudText Typo="Typo.h5" Class="mb-4 font-weight-bold">@_titlePage</MudText>
+
+            <MudGrid GutterSize="16px">
+                <!-- نام گروه -->
+                <MudItem xs="12" sm="12">
+                    <MudText Typo="Typo.subtitle1" Class="mb-1">نام گروه</MudText>
+                    <MudTextField @bind-Value="_model.Name" Variant="Variant.Outlined" Required="true"/>
+                </MudItem>
+
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Direction="Row" Justify="Justify.FlexEnd" Spacing="2" Class="w-100 mt-2">
+            <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="Cancel">انصراف</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Submit">ثبت</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public StakeholderGroup? Item { get; set; }
+
+    private MudForm? _form;
+    private StakeholderGroup _model = new();
+    private string _titlePage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item is null)
+        {
+            _model = new StakeholderGroup
+            {
+                CreateTime = DateTime.Now
+            };
+            _titlePage = "فرم ثبت گروه پروژه";
+        }
+        else
+        {
+            _titlePage = "فرم ویرایش گروه پروژه";
+            _model = new StakeholderGroup
+            {
+                Id = Item.Id,
+                Name = Item.Name,
+                CreateTime = Item.CreateTime
+            };
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task Submit()
+    {
+        await _form!.Validate();
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(_model));
+            _model = null;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private void OnValidated()
+    {
+    }
+
+}
