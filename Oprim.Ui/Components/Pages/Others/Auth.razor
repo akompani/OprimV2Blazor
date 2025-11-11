@@ -1,13 +1,24 @@
 ﻿@page "/auth"
-
 @using Microsoft.AspNetCore.Authorization
+@using Oprim.Application.Identities
 
-@attribute [Authorize]
+@* @attribute [Authorize(Policy = Permissions.Users.View)] *@
 
-<PageTitle>Auth</PageTitle>
+@inject IAuthorizationService Auth1
+@inject AuthenticationStateProvider AuthProvider
+<h1>Auth</h1>
+@if (canEdit)
+{
+    <button>Edit User</button>
+}
 
-<h1>You are authenticated</h1>
+@code {
+    private bool canEdit;
 
-<AuthorizeView>
-    Hello @context.User.Identity?.Name!
-</AuthorizeView>
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthProvider.GetAuthenticationStateAsync()).User;
+        var result = await Auth1.AuthorizeAsync(user, Permissions.Users.Edit);
+        canEdit = result.Succeeded;
+    }
+}

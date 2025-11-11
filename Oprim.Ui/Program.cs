@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Reflection;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -6,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using MudBlazor.Services;
 using Oprim.Application;
+using Oprim.Application.Identities;
+using Oprim.Domain.Database;
+using Oprim.Domain.Entities.Identity;
 using Oprim.Infrastructure;
 using Oprim.Ui;
 using Oprim.Ui.Components;
@@ -23,16 +27,29 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddUiServices();
 
 // ✅ Identity و Authentication
-builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
-    .AddIdentityCookies();
+builder.Services.AddIdentity<User, Role>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
-builder.Services.AddAuthorizationBuilder();
+// افزودن اتوماتیک همه Policyها
+builder.Services.AddPermissionPolicies();
 builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddMudServices();
-builder.Services.AddMediatR(cfg => 
+builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login";
+    options.AccessDeniedPath = "/AccessDenied";
+});
+
 // -------------------------
 // 🔹 Build App
 // -------------------------
