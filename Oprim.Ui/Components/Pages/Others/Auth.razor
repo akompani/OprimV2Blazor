@@ -1,24 +1,27 @@
 ﻿@page "/auth"
-@using Microsoft.AspNetCore.Authorization
-@using Oprim.Application.Identities
+
+@using Oprim.Ui.Components.Shared.Wrappers
 
 @* @attribute [Authorize(Policy = Permissions.Users.View)] *@
 
-@inject IAuthorizationService Auth1
-@inject AuthenticationStateProvider AuthProvider
+@* @inject IAuthorizationService Auth1 *@
+@* @inject AuthenticationStateProvider AuthProvider *@
+
 <h1>Auth</h1>
-@if (canEdit)
-{
-    <button>Edit User</button>
-}
+<PermissionWrapper>
+    <h3>ایجاد محصول جدید</h3>
+</PermissionWrapper>
+
+
 
 @code {
     private bool canEdit;
+    //
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     var user = (await AuthProvider.GetAuthenticationStateAsync()).User;
+    //     var result = await Auth1.AuthorizeAsync(user, Permissions.Users.Edit);
+    //     canEdit = result.Succeeded;
+    // }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var user = (await AuthProvider.GetAuthenticationStateAsync()).User;
-        var result = await Auth1.AuthorizeAsync(user, Permissions.Users.Edit);
-        canEdit = result.Succeeded;
-    }
 }

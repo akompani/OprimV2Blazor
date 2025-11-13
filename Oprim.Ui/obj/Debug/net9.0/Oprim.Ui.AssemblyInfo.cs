@@ -10,11 +10,12 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-Oprim.Ui-4e780e0b-a90b-4b6c-8f09-305f061e5623")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Oprim.Ui")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28acd8e4b2057bd8432e5766dee7cc2567138a89")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed9af6067bab4d2aace587b2dcd8fab6ce3eef64")]
 [assembly: System.Reflection.AssemblyProductAttribute("Oprim.Ui")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Oprim.Ui")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

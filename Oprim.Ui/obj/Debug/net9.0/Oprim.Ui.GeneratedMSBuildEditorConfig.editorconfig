@@ -35,8 +35,28 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Auth/AccessDenied.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoXEFjY2Vzc0RlbmllZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Auth/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoXExvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Cost/ProjectCostBreakdowns.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3N0XFByb2plY3RDb3N0QnJlYWtkb3ducy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Organizations/OrganizationRoles.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmdhbml6YXRpb25zXE9yZ2FuaXphdGlvblJvbGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Organizations/StakeholderGroups.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmdhbml6YXRpb25zXFN0YWtlaG9sZGVyR3JvdXBzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Organizations/Stakeholders.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmdhbml6YXRpb25zXFN0YWtlaG9sZGVycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Pages/Others/Auth.razor]
@@ -103,6 +123,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/Organizations/OrganizationRoleDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xPcmdhbml6YXRpb25zXE9yZ2FuaXphdGlvblJvbGVEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/Organizations/StakeholderDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xPcmdhbml6YXRpb25zXFN0YWtlaG9sZGVyRGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/Organizations/StakeholderGroupDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xPcmdhbml6YXRpb25zXFN0YWtlaG9sZGVyR3JvdXBEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Dialogs/ProjectCostBreakdowns/ProjectCostBreakdownDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRGlhbG9nc1xQcm9qZWN0Q29zdEJyZWFrZG93bnNcUHJvamVjdENvc3RCcmVha2Rvd25EaWFsb2cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -149,6 +181,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Sidebar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcU2lkZWJhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/Shared/Wrappers/PermissionWrapper.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcV3JhcHBlcnNcUGVybWlzc2lvbldyYXBwZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kamali/RiderProjects/OprimV2Blazor/Oprim.Ui/Components/_Imports.razor]

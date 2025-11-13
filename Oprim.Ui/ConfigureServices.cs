@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Oprim.Application;
+using Oprim.Application.Interfaces;
 using Oprim.Infrastructure;
+using Oprim.Ui.Identity;
 
 namespace Oprim.Ui;
 

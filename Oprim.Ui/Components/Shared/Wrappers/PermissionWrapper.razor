@@ -1,0 +1,25 @@
+@using Oprim.Application.Interfaces
+@inject NavigationManager Navigation
+@inject IPermissionService PermissionService
+
+@if (_authorized)
+{
+    @ChildContent
+}
+else
+{
+    <h3 class="text-danger text-center mt-5">🚫 شما اجازه دسترسی به این صفحه را ندارید</h3>
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool _authorized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var path = new Uri(Navigation.Uri).AbsolutePath;
+        _authorized = await PermissionService.HasPermissionForPage(path);
+    }
+
+}

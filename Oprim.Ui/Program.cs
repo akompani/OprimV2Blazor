@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -8,11 +9,19 @@ using Microsoft.Extensions.Localization;
 using MudBlazor.Services;
 using Oprim.Application;
 using Oprim.Application.Identities;
+using Oprim.Application.Interfaces;
 using Oprim.Domain.Database;
 using Oprim.Domain.Entities.Identity;
 using Oprim.Infrastructure;
 using Oprim.Ui;
 using Oprim.Ui.Components;
+using Oprim.Ui.Identity;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Oprim.Ui.Identity;
+using Oprim.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,16 +30,19 @@ var builder = WebApplication.CreateBuilder(args);
 // -------------------------
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
+
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddUiServices();
 
 // ✅ Identity و Authentication
-builder.Services.AddIdentity<User, Role>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-    })
+builder.Services.AddIdentity<User, Role>(options => { options.SignIn.RequireConfirmedAccount = false; })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
